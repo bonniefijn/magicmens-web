@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Magic Mens Musti's — Barbershop in Berlin-Charlottenburg | Haarschnitt, Bart, Rasur</title>
+<meta name="description" content="Magic Mens Musti's, Suarezstraße 3 in Berlin-Charlottenburg. Haarschnitt, Bartpflege, klassische Rasur. 4,9 Sterne bei Google. Termin direkt über WhatsApp.">
+<meta name="theme-color" content="#0B0B0B">
+
+<meta property="og:type" content="business.business">
+<meta property="og:locale" content="de_DE">
+<meta property="og:title" content="Magic Mens Musti's — Barbershop in Berlin-Charlottenburg">
+<meta property="og:description" content="Haarschnitt, Bart, Rasur. Suarezstraße 3, Charlottenburg. Termin über WhatsApp.">
+<meta property="og:image" content="img/salon-02.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preload" as="image" href="img/poster-hero.jpg" fetchpriority="high">
+<link rel="preload" as="font" type="font/woff2" href="fonts/barlow-300-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="fonts/shadows-into-light-400-latin.woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+
+<!--
+  ══════════════════════════════════════════════════════════════════════
+  ANPASSEN  →  alles Inhaltliche steckt gebündelt in  script.js  oben:
+  · TEAM     — Mitarbeiter + WhatsApp-Nummern  (Kern der Terminbuchung)
+  · SERVICES — Leistungen, Dauer, Preise
+  · SHOP     — Adresse, Öffnungszeiten
+  Verifiziert: Telefon 0177 2058682 · Suarezstraße 3, 14057 Berlin
+  · Schließt laut Google um 19:30 · 4,9 ★ aus 56 Bewertungen
+  ══════════════════════════════════════════════════════════════════════
+-->
+</head>
+<body>
+<a class="skip" href="#salon">Zum Inhalt springen</a>
+
+<!-- ═══ BINÄRREGEN ═══════════════════════════════════════════════════
+     Läuft fest hinter der ganzen Seite. Die Spalten baut script.js einmal
+     beim Laden auf; danach bewegt nur noch CSS sie per transform — kein
+     Frame-für-Frame-Rechnen, kein Canvas.
+     Farbe und Stärke steuern --code und --code-veil im CSS.
+     ═════════════════════════════════════════════════════════════════ -->
+<div class="rain" aria-hidden="true"></div>
+
+<!-- ═══ HEADER ═══ -->
+<header class="hdr" id="hdr">
+  <a class="hdr__brand" href="#top" aria-label="Magic Mens Musti&rsquo;s — zum Seitenanfang">
+    <img src="logo.png" alt="" width="685" height="201" fetchpriority="high" decoding="async">
+    <span class="hdr__word">Magic Mens Musti&rsquo;s</span>
+  </a>
+  <nav class="hdr__nav" aria-label="Hauptnavigation">
+    <a href="#salon">Salon</a>
+    <a href="#arbeit">Arbeit</a>
+    <a href="#leistungen">Leistungen</a>
+    <a href="#stimmen">Stimmen</a>
+    <a href="#anfahrt">Anfahrt</a>
+  </nav>
+  <button class="btn btn--sm hdr__cta" data-book>Termin</button>
+  <button class="burger" id="burger" aria-expanded="false" aria-controls="mnav" aria-label="Menü öffnen">
+    <span></span><span></span>
+  </button>
+</header>
+
+<!-- ═══ MOBILE NAV ═══ -->
+<div class="mnav" id="mnav" hidden>
+  <nav aria-label="Mobile Navigation">
+    <a href="#salon"><i>01</i>Der Salon</a>
+    <a href="#arbeit"><i>02</i>Die Arbeit</a>
+    <a href="#raum"><i>03</i>Der Raum</a>
+    <a href="#leistungen"><i>04</i>Leistungen</a>
+    <a href="#stimmen"><i>05</i>Stimmen</a>
+    <a href="#anfahrt"><i>06</i>Anfahrt</a>
+  </nav>
+  <div class="mnav__foot">
+    <button class="btn btn--full" data-book>Termin über WhatsApp</button>
+    <p><a href="tel:+491772058682">0177 2058682</a> · Suarezstraße 3</p>
+  </div>
+</div>
+
+<main id="top">
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero" id="hero">
+  <div class="hero__txt">
+    <!-- Das Schild sitzt jetzt oben links im Header. Die H1 steht in
+         Kingstone gemischt gesetzt — der Schnitt hat echte Kleinbuchstaben. -->
+    <p class="eyebrow">Herren &amp; Kinder · Suarezstraße 3</p>
+    <h1 class="hero__h1" data-text="Magic Mens Musti's">Magic Mens Musti's</h1>
+    <div class="hero__cta">
+      <button class="btn btn--lg" data-book>Termin über WhatsApp</button>
+      <a class="btn btn--ghost btn--lg" href="tel:+491772058682">0177 2058682</a>
+    </div>
+    <p class="proof">
+      <span class="stars" aria-hidden="true">★★★★★</span>
+      <strong>4,9</strong> aus 56 Google-Bewertungen
+    </p>
+  </div>
+
+  <figure class="hero__media">
+    <video
+      poster="img/poster-hero.jpg"
+      autoplay muted loop playsinline preload="metadata"
+      aria-label="Blick in den Salon: Messing, schwarze Fronten, Fischgrätboden">
+      <source src="media/interieur.mp4" type="video/mp4">
+    </video>
+  </figure>
+
+  <div class="hero__bar">
+    <div class="bar__i">
+      <span class="dot" data-status-dot></span>
+      <strong data-status-text>Öffnungszeiten prüfen</strong>
+    </div>
+    <div class="bar__i"><span>Adresse</span><strong>Suarezstraße 3, 14057 Berlin</strong></div>
+    <div class="bar__i"><span>Nächste Station</span><strong>U Bismarckstraße</strong></div>
+  </div>
+</section>
+
+<!-- ══════════ 01 · DER SALON — Ansprache des Inhabers ══════════ -->
+<section class="sec" id="salon">
+  <div class="sec__head">
+    <p class="eyebrow"><i>01</i> Der Salon</p>
+    <h2 class="h2 h2--uml" aria-label="Im Salon ist der Kunde König">
+      Im Salon ist<br>der Kunde K<span class="uml">O</span>nig
+    </h2>
+  </div>
+
+  <div class="welcome">
+    <figure class="welcome__img frame">
+      <img src="img/musti.jpg" alt="Musti, Inhaber von Magic Mens Musti's, konzentriert bei der Arbeit" width="1087" height="1446" loading="lazy" decoding="async">
+    </figure>
+
+    <div class="welcome__txt">
+      <p class="welcome__opener">
+        Liebe Kundinnen und Kunden, seit dem ersten Tag ist euer Vertrauen
+        das Wertvollste für uns.
+      </p>
+      <p>
+        Ob ihr uns zum ersten Mal besucht oder seit vielen Jahren zu unseren treuen
+        Stammkunden gehört — jeder von euch ist ein wichtiger Teil unserer Salonfamilie.
+      </p>
+      <p>
+        Für uns ist jeder Haarschnitt mehr als nur eine Dienstleistung. Er steht für
+        Vertrauen, Sorgfalt, Respekt und ehrliches Handwerk. Deshalb stehen Qualität,
+        Hygiene, Pünktlichkeit und eure Zufriedenheit jeden Tag im Mittelpunkt.
+      </p>
+      <p>
+        Unser größtes Ziel ist es, dass ihr unseren Salon zufrieden verlasst —
+        mit einem Lächeln und einem guten Gefühl.
+      </p>
+      <p class="sign">Musti <span>Inhaber</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 02 · DIE ARBEIT — Videos sprechen für sich ══════════ -->
+<section class="sec sec--tint" id="arbeit">
+  <div class="sec__head">
+    <p class="eyebrow"><i>02</i> Die Arbeit</p>
+    <h2 class="h2">Cuts</h2>
+  </div>
+
+  <div class="films">
+    <figure class="film frame">
+      <video poster="img/poster-cut1.jpg" muted loop playsinline preload="none" data-lazyvideo
+             aria-label="Fertiger Schnitt, Seitenansicht">
+        <source src="media/vidd1.mp4" type="video/mp4">
+      </video>
+    </figure>
+    <figure class="film frame">
+      <video poster="img/poster-cut2.jpg" muted loop playsinline preload="none" data-lazyvideo
+             aria-label="Schnitt und Styling im Salon">
+        <source src="media/musti-2.mp4" type="video/mp4">
+      </video>
+    </figure>
+    <figure class="film frame">
+      <video poster="img/poster-cut3.jpg" muted loop playsinline preload="none" data-lazyvideo
+             aria-label="Blondierter Crop, fertig gestylt">
+        <source src="media/work.mp4" type="video/mp4">
+      </video>
+    </figure>
+  </div>
+</section>
+
+<!-- ══════════ 03 · DER RAUM — Bilder gesetzt, nicht gerastert ══════════ -->
+<section class="sec" id="raum">
+  <div class="sec__head">
+    <p class="eyebrow"><i>03</i> Der Raum</p>
+    <h2 class="h2">Bis ins Detail</h2>
+    <p class="lead">Messing, Leder, Fischgrät — und ein Tee, solange du wartest.</p>
+  </div>
+
+  <!-- Karussell statt Collage: waagerecht, mit Scroll-Snap. Auf dem Handy
+       wischt man einfach, am Rechner führen die beiden Pfeile. Die Technik
+       ist natives Scrollen — kein Fremdcode, kein Ruckeln, und Tastatur
+       sowie Trackpad funktionieren von allein. -->
+  <div class="carousel">
+    <div class="carousel__track" id="raumTrack" tabindex="0"
+         role="group" aria-label="Bilder aus dem Salon, waagerecht scrollbar">
+      <figure class="slide frame">
+        <img src="img/stuhl-sm.jpg" data-full="img/stuhl.jpg" alt="Barberstuhl aus schwarzem Chesterfield-Leder auf poliertem Messinggestell" width="1066" height="1493" loading="lazy" decoding="async">
+      </figure>
+      <figure class="slide frame">
+        <img src="img/lampe-sm.jpg" data-full="img/lampe.jpg" alt="Kristallleuchter in vier Ringen unter goldgerahmter Deckenrosette" width="1146" height="1461" loading="lazy" decoding="async">
+      </figure>
+      <figure class="slide frame">
+        <img src="img/couch-sm.jpg" data-full="img/couch.jpg" alt="Cognacfarbenes Chesterfield-Sofa auf Fischgrätparkett" width="1077" height="1479" loading="lazy" decoding="async">
+      </figure>
+      <figure class="slide frame">
+        <img src="img/salon-02-sm.jpg" data-full="img/salon-02.jpg" alt="Der Salon in ganzer Länge: goldene Stühle, schwarze Fronten, Fischgrätboden" width="1812" height="909" loading="lazy" decoding="async">
+      </figure>
+      <figure class="slide frame">
+        <img src="img/tisch-sm.jpg" data-full="img/tisch.jpg" alt="Lounge-Ecke mit schwarzer Bank, Messingtablett und Teegläsern" width="1065" height="1422" loading="lazy" decoding="async">
+      </figure>
+      <figure class="slide frame">
+        <img src="img/trimmer-sm.jpg" data-full="img/trimmer.jpg" alt="Trimmer in Regenbogen-Finish auf schwarzer Ablage" width="1142" height="1435" loading="lazy" decoding="async">
+      </figure>
+      <figure class="slide frame">
+        <img src="img/cologne-sm.jpg" data-full="img/cologne.jpg" alt="Barber-Colognes in Reihe auf einem Messingregal" width="720" height="1122" loading="lazy" decoding="async">
+      </figure>
+      <figure class="slide frame">
+        <img src="img/zubehoer-sm.jpg" data-full="img/zubehoer.jpg" alt="Schwarzer Raumduft Black Oudh auf dem Messingtresen" width="734" height="1120" loading="lazy" decoding="async">
+      </figure>
+    </div>
+    <button class="carousel__nav carousel__nav--prev" data-slide="-1" aria-label="Vorheriges Bild">&#8249;</button>
+    <button class="carousel__nav carousel__nav--next" data-slide="1" aria-label="Nächstes Bild">&#8250;</button>
+  </div>
+</section>
+
+<!-- ══════════ 04 · LEISTUNGEN & PREISE ══════════ -->
+<section class="sec sec--tint" id="leistungen">
+  <div class="sec__head">
+    <p class="eyebrow"><i>04</i> Leistungen</p>
+    <h2 class="h2">Preise</h2>
+    <p class="lead">
+      Jede Zeile lässt sich direkt buchen — die Auswahl landet vorausgefüllt in WhatsApp.
+      <!-- [ANPASSEN] Preise + Dauer in script.js → SERVICES abgleichen -->
+    </p>
+  </div>
+
+  <ol class="price" id="priceList"><!-- aus script.js → SERVICES --></ol>
+
+  <div class="combo frame">
+    <div class="combo__txt">
+      <p class="eyebrow">Meistgebucht</p>
+      <h3 class="combo__t">Haarschnitt &amp; Bart</h3>
+      <p>Waschen, Schnitt, Bartkontur, heißes Tuch, Styling. Rund 60 Minuten.</p>
+    </div>
+    <div class="combo__side">
+      <span class="combo__p">45&nbsp;€</span>
+      <button class="btn" data-book data-service="kombi">Termin buchen</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 05 · STIMMEN ══════════ -->
+<section class="sec" id="stimmen">
+  <div class="sec__head">
+    <p class="eyebrow"><i>05</i> Stimmen</p>
+    <h2 class="h2">4,9 von 5</h2>
+    <p class="lead">
+      <!-- [ANPASSEN] durch echte Google-Rezensionen ersetzen -->
+      Auszüge aus 56 Google-Bewertungen.
+    </p>
+  </div>
+
+  <div class="quotes">
+    <blockquote class="frame">
+      <p>„Sauberster Fade in Charlottenburg. Musti nimmt sich Zeit und fragt nach, statt einfach loszulegen."</p>
+      <cite>Google-Rezension</cite>
+    </blockquote>
+    <blockquote class="frame">
+      <p>„Der Laden sieht aus wie gemacht fürs Foto — aber das Handwerk ist der eigentliche Grund."</p>
+      <cite>Google-Rezension</cite>
+    </blockquote>
+    <blockquote class="frame">
+      <p>„Bart und Schnitt in einem Durchgang, dazu ein Tee. Gehe seit einem Jahr nirgendwo anders hin."</p>
+      <cite>Google-Rezension</cite>
+    </blockquote>
+  </div>
+</section>
+
+<!-- ══════════ 06 · TERMIN ══════════ -->
+<section class="sec sec--dark" id="termin">
+  <div class="cta">
+    <p class="eyebrow"><i>06</i> Termin</p>
+    <h2 class="h2">Drei Schritte</h2>
+    <p class="lead">
+      Leistung wählen, Barber wählen, Wunschzeit angeben — der Rest geht als fertige
+      Nachricht an WhatsApp. Keine App, kein Konto, keine Wartezeit.
+    </p>
+    <div class="cta__row">
+      <button class="btn btn--light btn--lg" data-book>Termin über WhatsApp</button>
+      <a class="btn btn--ghost btn--lg" href="tel:+491772058682">Lieber anrufen</a>
+    </div>
+    <p class="cta__fine">
+      <span class="dot" data-status-dot></span>
+      <span data-status-text>Öffnungszeiten prüfen</span> · Mo–Sa 10:00–19:30
+    </p>
+  </div>
+</section>
+
+<!-- ══════════ 07 · ANFAHRT ══════════ -->
+<section class="sec" id="anfahrt">
+  <div class="sec__head">
+    <p class="eyebrow"><i>07</i> Anfahrt</p>
+    <h2 class="h2">Hier findest du uns</h2>
+  </div>
+
+  <div class="loc">
+    <div class="loc__col">
+      <h3>Adresse</h3>
+      <p>Suarezstraße 3<br>14057 Berlin-Charlottenburg</p>
+      <a class="link" href="https://www.google.com/maps/search/?api=1&amp;query=Magic+Mens+Musti%27s+Suarezstra%C3%9Fe+3+Berlin" target="_blank" rel="noopener">In Google Maps öffnen →</a>
+    </div>
+    <div class="loc__col">
+      <h3>Öffnungszeiten</h3>
+      <table class="hours" id="hours"><tbody><!-- aus script.js → SHOP.hours --></tbody></table>
+    </div>
+    <div class="loc__col">
+      <h3>Kontakt</h3>
+      <p><a class="link" href="tel:+491772058682">0177 2058682</a></p>
+      <p><button class="link link--btn" data-book>Termin über WhatsApp</button></p>
+      <p><button class="link link--btn" data-storno>Termin absagen</button></p>
+      <p class="muted">U Bismarckstraße · U Wilmersdorfer Straße</p>
+    </div>
+  </div>
+
+  <!-- Eingebettete Karte, zoom- und verschiebbar. Bewusst OpenStreetMap
+       statt Google Maps: die Kacheln kommen von der OpenStreetMap
+       Foundation, nicht von einem Werbekonzern. Trotzdem ist es ein
+       fremder Server — das steht so in der Datenschutzerklärung.
+       Koordinaten über Nominatim geprüft; der Salon ist dort selbst
+       eingetragen. -->
+  <figure class="map">
+    <iframe
+      title="Karte mit dem Standort von Magic Mens Musti&rsquo;s, Suarezstraße 3 — zoombar"
+      src="https://www.openstreetmap.org/export/embed.html?bbox=13.2911617%2C52.5076466%2C13.3021617%2C52.5126466&amp;layer=mapnik&amp;marker=52.5101466%2C13.2966617"
+      loading="lazy" referrerpolicy="no-referrer"></iframe>
+    <figcaption class="map__fuss">
+      <span>Suarezstraße 3 · 14057 Berlin-Charlottenburg</span>
+      <a class="link" href="https://www.openstreetmap.org/?mlat=52.5101466&amp;mlon=13.2966617#map=17/52.5101466/13.2966617"
+         target="_blank" rel="noopener">Größere Karte</a>
+      <a class="link" href="https://www.google.com/maps/dir/?api=1&amp;destination=52.5101466,13.2966617"
+         target="_blank" rel="noopener">Route starten →</a>
+    </figcaption>
+  </figure>
+</section>
+
+</main>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="ftr">
+  <p class="ftr__mark">Magic Mens Musti&rsquo;s</p>
+  <div class="ftr__grid">
+    <p>Suarezstraße 3 · 14057 Berlin-Charlottenburg · <a href="tel:+491772058682">0177 2058682</a></p>
+    <nav class="ftr__nav" aria-label="Fußzeile">
+      <a href="#leistungen">Leistungen</a>
+      <a href="#anfahrt">Anfahrt</a>
+      <button class="ftr__storno" data-storno>Termin absagen</button>
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+    </nav>
+    <p class="ftr__cr">© <span data-year>2026</span> Magic Mens Musti&rsquo;s</p>
+  </div>
+</footer>
+
+<!-- ═══ STICKY BOOKING BAR (mobil) ═══ -->
+<div class="bookbar">
+  <a class="bookbar__tel" href="tel:+491772058682" aria-label="Anrufen">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.6 1 1 0 0 1-.25 1z"/></svg>
+  </a>
+  <button class="bookbar__cta" data-book>Termin über WhatsApp</button>
+</div>
+
+<!-- ═══ BUCHUNGS-DIALOG ═══ -->
+<dialog class="bk" id="bk" aria-labelledby="bkTitle">
+  <form method="dialog" class="bk__x"><button aria-label="Schließen">&times;</button></form>
+
+  <div class="bk__head">
+    <p class="eyebrow">Termin</p>
+    <h2 id="bkTitle" class="bk__title">Über WhatsApp buchen</h2>
+    <ol class="bk__steps" aria-hidden="true">
+      <li data-step="1">Leistung</li>
+      <li data-step="2">Barber</li>
+      <li data-step="3">Zeit</li>
+    </ol>
+  </div>
+
+  <div class="bk__body">
+    <fieldset class="bk__pane" data-pane="1">
+      <legend>Welche Leistung?</legend>
+      <div class="bk__opts" id="bkServices"></div>
+    </fieldset>
+
+    <fieldset class="bk__pane" data-pane="2" hidden>
+      <legend>Bei wem?</legend>
+      <div class="bk__opts bk__opts--team" id="bkTeam"></div>
+    </fieldset>
+
+    <fieldset class="bk__pane" data-pane="3" hidden>
+      <legend>Wann passt es dir?</legend>
+      <div class="bk__grid">
+        <label class="fld"><span>Wunschtag</span><input type="date" id="bkDate" required></label>
+        <label class="fld"><span>Uhrzeit</span><input type="time" id="bkTime" step="900" value="15:00" required></label>
+      </div>
+      <label class="fld"><span>Dein Name</span><input type="text" id="bkName" autocomplete="name" placeholder="Vorname genügt" required></label>
+      <label class="fld"><span>Anmerkung <em>(optional)</em></span><textarea id="bkNote" rows="2" placeholder="z. B. Fade an den Seiten, oben länger"></textarea></label>
+      <p class="bk__hint">Der Wunschtermin ist eine Anfrage — dein Barber bestätigt direkt in WhatsApp.</p>
+    </fieldset>
+
+    <!-- Absage: eigener Weg, gleicher Kanal. Erreichbar über den Link im Fuß
+         des Dialogs sowie über „Termin absagen" in der Anfahrt und im Footer. -->
+    <fieldset class="bk__pane" data-pane="storno" hidden>
+      <legend>Termin absagen</legend>
+      <div class="bk__grid">
+        <label class="fld"><span>Tag des Termins</span><input type="date" id="stoDate"></label>
+        <label class="fld"><span>Uhrzeit</span><input type="time" id="stoTime" step="900"></label>
+      </div>
+      <label class="fld"><span>Dein Name</span><input type="text" id="stoName" autocomplete="name" placeholder="Vorname genügt"></label>
+      <p class="bk__hint">
+        Bitte sag so früh wie möglich Bescheid — dann kann der Platz an
+        jemand anderen gehen. Die Absage geht als fertige Nachricht raus.
+      </p>
+    </fieldset>
+  </div>
+
+  <div class="bk__foot">
+    <p class="bk__sum" id="bkSum"></p>
+    <p class="bk__storno"><button type="button" id="bkStornoLink">Termin absagen</button></p>
+    <div class="bk__nav">
+      <button class="btn btn--ghost" id="bkBack" hidden>Zurück</button>
+      <button class="btn" id="bkNext">Weiter</button>
+      <a class="btn btn--wa" id="bkStoSend" href="#" target="_blank" rel="noopener" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2m0 2a8 8 0 1 1-4.1 14.9l-.3-.2-2.6.7.7-2.5-.2-.3A8 8 0 0 1 12 4m-3.4 4c-.2 0-.5.1-.7.4-.2.3-.8.8-.8 2s.8 2.3.9 2.4c.1.2 1.6 2.6 4 3.5 1.9.8 2.3.6 2.8.6.4 0 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.6-.3-1.4-.7c-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5l.4-.5.3-.5v-.4l-.7-1.7c-.2-.4-.4-.4-.5-.4z"/></svg>
+        Absage senden
+      </a>
+      <a class="btn btn--wa" id="bkSend" href="#" target="_blank" rel="noopener" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2m0 2a8 8 0 1 1-4.1 14.9l-.3-.2-2.6.7.7-2.5-.2-.3A8 8 0 0 1 12 4m-3.4 4c-.2 0-.5.1-.7.4-.2.3-.8.8-.8 2s.8 2.3.9 2.4c.1.2 1.6 2.6 4 3.5 1.9.8 2.3.6 2.8.6.4 0 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.6-.3-1.4-.7c-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5l.4-.5.3-.5v-.4l-.7-1.7c-.2-.4-.4-.4-.5-.4z"/></svg>
+        In WhatsApp senden
+      </a>
+    </div>
+  </div>
+</dialog>
+
+<!-- ═══ LIGHTBOX ═══ -->
+<div class="lb" id="lb" hidden>
+  <button class="lb__x" id="lbClose" aria-label="Schließen">&times;</button>
+  <button class="lb__nav lb__nav--p" id="lbPrev" aria-label="Vorheriges Bild">&#8249;</button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb__nav lb__nav--n" id="lbNext" aria-label="Nächstes Bild">&#8250;</button>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HairSalon",
+  "name": "Magic Mens Musti's",
+  "description": "Herrenfriseur und Barbershop in Berlin-Charlottenburg: Haarschnitt, Bartpflege, klassische Rasur.",
+  "image": "img/salon-02.jpg",
+  "telephone": "+49 177 2058682",
+  "priceRange": "€€",
+  "currenciesAccepted": "EUR",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Suarezstraße 3",
+    "postalCode": "14057",
+    "addressLocality": "Berlin",
+    "addressRegion": "Berlin",
+    "addressCountry": "DE"
+  },
+  "geo": { "@type": "GeoCoordinates", "latitude": 52.5101466, "longitude": 13.2966617 },
+  "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "56" },
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+    "opens": "10:00",
+    "closes": "19:30"
+  }]
+}
+</script>
+<script src="script.js" defer></script>
+</body>
+</html>
