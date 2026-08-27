@@ -769,7 +769,9 @@ ul,ol{ list-style:none }
 .bookbar__tel svg{ width:20px; height:20px; fill:var(--ink) }
 .bookbar__cta{
   flex:1; min-height:52px; border-radius:999px;
-  background:var(--ink); color:#fff;
+  /* --ink ist nach der Invertierung hell. Die Schrift muss also die
+     Papierfarbe tragen, nicht Weiß — sonst steht Weiß auf Weiß. */
+  background:var(--ink); color:var(--paper);
   font-size:.9rem; font-weight:600; letter-spacing:.03em;
 }
 

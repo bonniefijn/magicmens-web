@@ -96,9 +96,12 @@
   </div>
 
   <figure class="hero__media">
+    <!-- Kein autoplay, kein preload im Markup: das Skript entscheidet nach
+         Verbindungsqualität, ob das Video überhaupt geladen wird. Bis dahin
+         steht das Standbild — das ist auf dem Handy sofort da. -->
     <video
       poster="img/poster-hero.jpg"
-      autoplay muted loop playsinline preload="metadata"
+      muted loop playsinline preload="none" data-herovideo
       aria-label="Blick in den Salon: Messing, schwarze Fronten, Fischgrätboden">
       <source src="media/interieur.mp4" type="video/mp4">
     </video>
@@ -483,6 +486,9 @@
   }]
 }
 </script>
+<!-- Lenis: weiches Scrollen. Selbst gehostet, nicht vom CDN — wie die
+     Schriften auch, damit keine Verbindung nach außen entsteht. -->
+<script src="vendor/lenis.min.js" defer></script>
 <script src="script.js" defer></script>
 </body>
 </html>

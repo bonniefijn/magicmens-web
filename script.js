@@ -165,8 +165,32 @@ $$("#mnav a").forEach(a => a.addEventListener("click", () => burger.click()));
   targets.forEach(el => io.observe(el));
 })();
 
+/* ── Verbindung einschätzen ─────────────────────────────────────────────
+   Auf Mobilfunk oder bei aktiviertem Datensparmodus bleiben die Videos
+   aus und die Standbilder stehen. 30 MB Video über eine langsame
+   Leitung sind kein Erlebnis, sondern eine Wartezeit. */
+function magSchwereMedien(){
+  const c = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  if (!c) return true;                                  // Browser sagt nichts → laden
+  if (c.saveData) return false;                         // Datensparmodus respektieren
+  return !["slow-2g","2g","3g"].includes(c.effectiveType);
+}
+
+/* ── Hero-Video ─────────────────────────────────────────────────────────
+   Lädt erst nach dem ersten Aufbau der Seite und nur bei guter Leitung.
+   Sonst bleibt das Standbild stehen — die Seite ist trotzdem vollständig. */
+(function heroVideo(){
+  const v = $("[data-herovideo]");
+  if (!v) return;
+  if (!magSchwereMedien()) return;
+  const start = () => { v.preload = "auto"; v.load(); v.play().catch(() => {}); };
+  if (document.readyState === "complete") setTimeout(start, 400);
+  else addEventListener("load", () => setTimeout(start, 400), { once:true });
+})();
+
 /* ── Videos erst laden, wenn sie in Sicht kommen ────────────────────── */
 (function lazyVideos(){
+  if (!magSchwereMedien()) return;
   const vids = $$("[data-lazyvideo]");
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => {
@@ -499,3 +523,48 @@ if (!staff.length){
     timer = setTimeout(aufbauen, 250);
   }, { passive:true });
 })();
+
+/* ── Weiches Scrollen (Lenis) ───────────────────────────────────────────
+   Bewusst zurückhaltend eingestellt: kein langes Nachfedern, kein
+   Gummiband. Das Rad soll sich noch wie das eigene Gerät anfühlen,
+   nur ohne die harten Sprünge.
+
+   Aus bei prefers-reduced-motion und auf Touch-Geräten — dort hat das
+   System sein eigenes, besseres Scrollverhalten, und Eingriffe fühlen
+   sich dort fast immer falsch an.
+
+   Zum Abschalten: diesen Block und das Skript im <head> entfernen. */
+(function weichesScrollen(){
+  if (typeof Lenis === "undefined") return;
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (matchMedia("(pointer: coarse)").matches) return;
+
+  const lenis = new Lenis({
+    duration: 0.9,                 // kurz — 1,2 und mehr wirkt schwammig
+    easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true,
+    touchMultiplier: 1
+  });
+
+  function takt(zeit){ lenis.raf(zeit); requestAnimationFrame(takt); }
+  requestAnimationFrame(takt);
+
+  /* Ankersprünge übernimmt jetzt Lenis — mit demselben Versatz für den
+     festen Header wie scroll-padding-top im CSS. */
+  const versatz = -(79 + 24);
+  $$('a[href^="#"]').forEach(a => a.addEventListener("click", e => {
+    const ziel = document.querySelector(a.getAttribute("href"));
+    if (!ziel) return;
+    e.preventDefault();
+    lenis.scrollTo(ziel, { offset: versatz });
+  }));
+
+  /* Während der Buchungsdialog offen ist, darf die Seite dahinter
+     nicht mitscrollen. */
+  const dlg = $("#bk");
+  if (dlg){
+    new MutationObserver(() => dlg.open ? lenis.stop() : lenis.start())
+      .observe(dlg, { attributes:true, attributeFilter:["open"] });
+  }
+})();
+
