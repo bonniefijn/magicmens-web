@@ -265,6 +265,8 @@ ul,ol{ list-style:none }
   to  { transform:translate3d(0,100vh,0) }
 }
 @media (max-width:600px){
+  /* 10,6 px sind auf einem Handy zu klein zum Lesen — Labels wachsen. */
+  :root{ --fs-label:.8rem }
   .rain{ opacity:calc(var(--code-veil) * .75) }
   .rain__col{ font-size:12px }
 }
@@ -730,6 +732,7 @@ ul,ol{ list-style:none }
   font-size:.84rem; color:var(--ink-2);
 }
 .map__fuss span{ margin-right:auto }
+.map__fuss a{ min-height:44px; display:inline-flex; align-items:center }
 
 /* ── Footer ─────────────────────────────────────────────────────────── */
 .ftr{ padding:var(--section) var(--gutter) 3rem; border-top:1px solid var(--line) }
