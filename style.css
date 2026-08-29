@@ -141,11 +141,6 @@
   /* Messing, aus den Salonfotos gemessen: poliertes Gestell, Tresengitter,
      Regalstege, Leuchterringe. #C6A866 ist die Lichtkante, #B49024 der
      satte Korpus. Derselbe Werkstoff, aus dem sein Logo gezeichnet ist. */
-  /* Blau aus dem LED-Licht unter seinem Tresen gemessen: #4278C6,
-     hsl(215 54% 52%). Für fallenden Code auf Schwarz zu dunkel, deshalb
-     bei gleichem Farbton aufgehellt. --code-veil steuert die Stärke. */
-  --code:      #8EB1E1;
-  --code-veil: .09;   /* 0 = aus. Bei .16 wurde die Seite unruhig. */
 
   --brass:      #C6A866;
   --brass-deep: #B49024;
@@ -239,40 +234,6 @@ ul,ol{ list-style:none }
 }
 .skip:focus{ transform:none }
 
-
-/* ── Binärregen ─────────────────────────────────────────────────────────
-   Jede Spalte ist ein einzelnes Element mit einer langen Ziffernkette und
-   wandert per transform von oben nach unten. Nur transform wird animiert,
-   also GPU-beschleunigt und ohne Layoutarbeit pro Bild. Eine Maske blendet
-   oben und unten weich aus, damit nichts hart abgeschnitten wirkt.
-   ──────────────────────────────────────────────────────────────────── */
-.rain{
-  position:fixed; inset:0; z-index:-1; pointer-events:none; overflow:hidden;
-  color:var(--code); opacity:var(--code-veil);
-  -webkit-mask:linear-gradient(to bottom, transparent, #000 14%, #000 82%, transparent);
-          mask:linear-gradient(to bottom, transparent, #000 14%, #000 82%, transparent);
-}
-.rain__col{
-  position:absolute; top:0; white-space:pre;
-  font-family:var(--ff-mono); font-weight:300;
-  font-size:14px; line-height:1.5; letter-spacing:.22em;
-  animation-name:rainFall; animation-timing-function:linear;
-  animation-iteration-count:infinite;
-  will-change:transform;
-}
-@keyframes rainFall{
-  from{ transform:translate3d(0,-100%,0) }
-  to  { transform:translate3d(0,100vh,0) }
-}
-@media (max-width:600px){
-  /* 10,6 px sind auf einem Handy zu klein zum Lesen — Labels wachsen. */
-  :root{ --fs-label:.8rem }
-  .rain{ opacity:calc(var(--code-veil) * .75) }
-  .rain__col{ font-size:12px }
-}
-@media (prefers-reduced-motion:reduce){
-  .rain{ display:none }
-}
 
 /* ── Der Rahmen — gilt für jedes Bild und Video ─────────────────────── */
 .frame{
@@ -462,46 +423,6 @@ ul,ol{ list-style:none }
   margin-top:.5rem; color:#fff;
   text-shadow:0 2px 30px rgba(0,0,0,.45);
 }
-/* ── Flackern auf dem Hero-Titel ────────────────────────────────────────
-   Alle 5 Sekunden ein kurzer Aussetzer: ein versetztes Duplikat der
-   Schrift blitzt in Bändern auf, danach läuft eine Scanline durch.
-   Über 90 % der Zeit passiert nichts — das ist der Punkt, sonst wird es
-   zappelig. Bei prefers-reduced-motion komplett aus. */
-.hero__h1{ position:relative; isolation:isolate }
-.hero__h1::before{
-  content:attr(data-text);
-  position:absolute; inset:0; z-index:2;
-  color:#fff; pointer-events:none; opacity:0;
-  text-shadow:0 0 18px rgba(255,255,255,.55);
-  animation:glitch 5s steps(1,end) infinite;
-}
-.hero__h1::after{
-  content:""; position:absolute; left:-4%; right:-4%; height:2px; top:-6px;
-  z-index:3; pointer-events:none; opacity:0;
-  background:rgba(255,255,255,.85);
-  box-shadow:0 0 12px rgba(255,255,255,.6);
-  animation:scanline 5s ease infinite;
-}
-@keyframes glitch{
-  0%,88%,100%{ opacity:0; transform:none; clip-path:none }
-  89%{ opacity:1; transform:skewX(-9deg) scaleY(1.02); clip-path:inset(16% 0 54%) }
-  90%{ opacity:1; transform:skewX(6deg) translateX(3px); clip-path:inset(54% 0 16%) }
-  91%{ opacity:.75; transform:skewX(-4deg); clip-path:inset(32% 0 40%) }
-  92%{ opacity:0; transform:none; clip-path:none }
-  95%{ opacity:.9; transform:skewX(3deg) translateX(-3px); clip-path:inset(62% 0 10%) }
-  96%{ opacity:0; transform:none; clip-path:none }
-}
-@keyframes scanline{
-  0%,88%{ opacity:0; top:-6px }
-  89%{ opacity:.85; top:0% }
-  92%{ opacity:.45; top:52% }
-  95%{ opacity:0; top:100% }
-  100%{ opacity:0 }
-}
-@media (prefers-reduced-motion:reduce){
-  .hero__h1::before,.hero__h1::after{ display:none }
-}
-
 .hero__cta{ display:flex; flex-wrap:wrap; justify-content:center; gap:.7rem; margin-top:2.25rem }
 .hero__cta .btn{ background:#fff; color:#0B0B0B; border-color:#fff }
 .hero__cta .btn:hover{ background:#E3DFD9; border-color:#E3DFD9 }

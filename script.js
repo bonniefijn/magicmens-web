@@ -478,52 +478,6 @@ if (!staff.length){
   }));
 })();
 
-/* ── Binärregen ─────────────────────────────────────────────────────────
-   Baut die Spalten einmal beim Laden. Danach läuft alles über die
-   CSS-Animation — kein Intervall, kein requestAnimationFrame, keine
-   Rechenlast im Betrieb. Bei prefers-reduced-motion wird gar nichts
-   erzeugt, dann bleibt auch das Markup leer. */
-(function binaerregen(){
-  const box = $(".rain");
-  if (!box) return;
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-  const ABSTAND = 58;           // Pixel zwischen den Spalten — je größer, desto ruhiger
-  const ZEICHEN = 46;           // Ziffern je Spalte
-
-  const kette = () => Array.from({ length: ZEICHEN },
-    () => (Math.random() < 0.08 ? " " : (Math.random() < 0.5 ? "0" : "1"))).join("\n");
-
-  const aufbauen = () => {
-    box.textContent = "";
-    const spalten = Math.max(6, Math.ceil(innerWidth / ABSTAND));
-    const stueck = document.createDocumentFragment();
-    for (let i = 0; i < spalten; i++){
-      const col = document.createElement("div");
-      col.className = "rain__col";
-      col.textContent = kette();
-      col.style.left            = `${(i + .5) * 100 / spalten}%`;
-      col.style.animationDuration = `${26 + Math.random() * 26}s`;   // langsamer = ruhiger
-      col.style.animationDelay    = `${-Math.random() * 30}s`;
-      col.style.opacity           = (.45 + Math.random() * .55).toFixed(2);
-      stueck.appendChild(col);
-    }
-    box.appendChild(stueck);
-  };
-
-  aufbauen();
-
-  // Nur bei echter Breitenänderung neu aufbauen, nicht bei der
-  // Adressleiste auf dem Handy.
-  let breite = innerWidth, timer;
-  addEventListener("resize", () => {
-    if (Math.abs(innerWidth - breite) < 60) return;
-    breite = innerWidth;
-    clearTimeout(timer);
-    timer = setTimeout(aufbauen, 250);
-  }, { passive:true });
-})();
-
 /* ── Weiches Scrollen (Lenis) ───────────────────────────────────────────
    Bewusst zurückhaltend eingestellt: kein langes Nachfedern, kein
    Gummiband. Das Rad soll sich noch wie das eigene Gerät anfühlen,
@@ -567,4 +521,3 @@ if (!staff.length){
       .observe(dlg, { attributes:true, attributeFilter:["open"] });
   }
 })();
-
