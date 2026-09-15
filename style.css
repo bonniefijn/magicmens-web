@@ -128,15 +128,15 @@
 
 :root{
   /* Flächen */
-  --paper:  #0B0B0B;   /* Grundfläche — invertiert */
-  --tint:   #151413;   /* abgesetzte Sektion, minimal warm */
+  --paper:  #161513;   /* mattes Schwarz, leicht warm gestimmt */
+  --tint:   #1E1C19;   /* abgesetzte Sektion, eine Spur heller */
   --dark:   #F2F0ED;   /* eine helle Sektion als Gegengewicht */
 
   /* Schrift */
   --ink:    #F2F0ED;
   --ink-2:  #A9A49E;   /* Fließtext sekundär  — 8.0:1 auf Schwarz */
   --ink-3:  #78736E;   /* Labels              — 4.2:1, nur ≥14px bold */
-  --line:   #2A2724;
+  --line:   #322E29;
 
   /* Messing, aus den Salonfotos gemessen: poliertes Gestell, Tresengitter,
      Regalstege, Leuchterringe. #C6A866 ist die Lichtkante, #B49024 der
@@ -167,7 +167,7 @@
        #961EAA  hsl(291 70% 39%)  die alte, rosastichige Fassung
      --violet-veil steuert die Stärke des Schleiers über den Videos. */
   --violet: #5820A0;
-  --violet-veil: .30;
+  --violet-veil: .17;   /* war .30 — die Bilder waren zu dunkel */
 
   /* Kingstone trägt die großen Titel, Shadows Into Light die Sektions-
      überschriften, Barlow Condensed die Labels, Barlow den Fließtext. */
@@ -199,6 +199,7 @@
     0 16px 40px rgba(0,0,0,.55);
   --lift-hi:
     0 0 0 1px var(--brass-line-hi),
+    0 0 34px rgba(198,168,102,.22),
     0 4px 10px rgba(0,0,0,.4),
     0 30px 64px rgba(0,0,0,.7);
 }
@@ -284,7 +285,7 @@ ul,ol{ list-style:none }
 .btn--full{ width:100% }
 .btn--ghost{ background:transparent; color:var(--ink); border-color:var(--line) }
 .btn--ghost:hover{ background:transparent; border-color:var(--ink) }
-.btn--light{ background:#0B0B0B; color:#F2F0ED; border-color:#0B0B0B }
+.btn--light{ background:#161513; color:#F2F0ED; border-color:#161513 }
 .btn--light:hover{ background:#2A2724; border-color:#2A2724 }
 /* ── Knopf mit Displayschrift ───────────────────────────────────────────
    „Termin" trägt Kingstone, die Ergänzung bleibt in Barlow Condensed.
@@ -328,7 +329,7 @@ ul,ol{ list-style:none }
   position:fixed; top:0; left:0; right:0; z-index:60;
   display:flex; align-items:center; gap:2rem;
   padding:1rem var(--gutter);
-  background:rgba(11,11,11,.86); backdrop-filter:blur(12px);
+  background:rgba(22,21,19,.88); backdrop-filter:blur(12px);
   border-bottom:1px solid transparent;
   transition:border-color .35s var(--ease);
 }
@@ -424,7 +425,7 @@ ul,ol{ list-style:none }
   text-shadow:0 2px 30px rgba(0,0,0,.45);
 }
 .hero__cta{ display:flex; flex-wrap:wrap; justify-content:center; gap:.7rem; margin-top:2.25rem }
-.hero__cta .btn{ background:#fff; color:#0B0B0B; border-color:#fff }
+.hero__cta .btn{ background:#fff; color:#161513; border-color:#fff }
 .hero__cta .btn:hover{ background:#E3DFD9; border-color:#E3DFD9 }
 .hero__cta .btn--ghost{ background:transparent; color:#fff; border-color:rgba(255,255,255,.5) }
 .hero__cta .btn--ghost:hover{ background:rgba(255,255,255,.12); border-color:#fff }
@@ -454,7 +455,7 @@ ul,ol{ list-style:none }
 /* ══════════ Sektionen ══════════ */
 .sec{ padding:var(--section) var(--gutter) }
 .sec--tint{ background:var(--tint) }
-.sec--dark{ background:var(--dark); color:#0B0B0B }
+.sec--dark{ background:var(--dark); color:#161513 }
 .sec--dark .eyebrow{ color:rgba(11,11,11,.5) }
 .sec--dark .eyebrow i{ color:#0B0B0B }
 .sec--dark .lead{ color:rgba(11,11,11,.7) }
@@ -522,7 +523,12 @@ ul,ol{ list-style:none }
   opacity:var(--violet-veil);
   transition:opacity .45s var(--ease);
 }
-.film:hover::after{ opacity:.08 }
+.film:hover::after{ opacity:0 }
+/* Beim Darüberfahren zieht der Schleier ganz weg und das Bild bekommt
+   Licht: etwas mehr Helligkeit, etwas mehr Farbe, dazu ein warmer
+   Schein nach außen. Kein Blitz — das Bild wird einfach wach. */
+.film video,.slide img{ transition:filter .45s var(--ease) }
+.film:hover video,.slide:hover img{ filter:brightness(1.14) saturate(1.1) contrast(1.02) }
 
 /* ── Der Raum — Karussell ───────────────────────────────────────────────
    Natives Scroll-Snapping: auf dem Handy wischt man, am Rechner führen
@@ -553,7 +559,7 @@ ul,ol{ list-style:none }
   background:var(--violet); mix-blend-mode:multiply;
   opacity:var(--violet-veil); transition:opacity .45s var(--ease);
 }
-.slide:hover::after{ opacity:.08 }
+.slide:hover::after{ opacity:0 }
 
 .carousel__nav{
   position:absolute; top:50%; translate:0 -50%; z-index:3;
@@ -709,7 +715,7 @@ ul,ol{ list-style:none }
   position:fixed; left:0; right:0; bottom:0; z-index:70;
   display:none; gap:.6rem; padding:.6rem var(--gutter);
   padding-bottom:calc(.6rem + env(safe-area-inset-bottom));
-  background:rgba(11,11,11,.92); backdrop-filter:blur(12px);
+  background:rgba(22,21,19,.93); backdrop-filter:blur(12px);
   border-top:1px solid var(--line);
   transform:translateY(120%); transition:transform .4s var(--ease);
 }
@@ -815,11 +821,17 @@ ul,ol{ list-style:none }
 
 /* ── Lightbox ───────────────────────────────────────────────────────── */
 .lb{
-  position:fixed; inset:0; z-index:120; background:rgba(11,11,11,.97);
+  position:fixed; inset:0; z-index:120; background:rgba(12,11,10,.96);
   display:flex; align-items:center; justify-content:center; padding:4.5rem 1rem;
 }
 .lb[hidden]{ display:none }
-.lb img{ max-width:100%; max-height:100%; object-fit:contain; border-radius:var(--r) }
+/* Im Großbild kein Schleier und kein Dämpfer — hier soll die Aufnahme
+   für sich stehen, so hell wie sie aufgenommen wurde. */
+.lb img{
+  max-width:100%; max-height:100%; object-fit:contain; border-radius:var(--r);
+  filter:brightness(1.06) saturate(1.05);
+  box-shadow:0 0 60px rgba(198,168,102,.18), 0 30px 80px rgba(0,0,0,.6);
+}
 .lb__x,.lb__nav{ position:absolute; width:56px; height:56px; font-size:2rem; line-height:1 }
 .lb__x{ top:.5rem; right:.5rem }
 .lb__nav--p{ left:.5rem; top:50%; transform:translateY(-50%) }
