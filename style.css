@@ -652,26 +652,37 @@ ul,ol{ list-style:none }
 .cta__row{ display:flex; flex-wrap:wrap; gap:.7rem; margin-top:2.25rem }
 
 /* Kronleuchter — das Stück, das man im Salon zuerst sieht.
-   Aus dem Foto freigestellt (nur die Kristalle, keine Decke).
-   Pendelt langsam an der Aufhängung um die eigene Achse (rotateY),
-   ein Messing-Schimmer läuft über die Kristalle. */
+   Zwei Ebenen aus dem echten Foto:
+   · kron__raum  — die Decke dahinter, violett getönt, fast durchsichtig
+   · kron__licht — der Leuchter selbst, freigestellt, voll deckend,
+                   mit violettem Neon-Schein
+   Pendelt langsam um die eigene Achse, ein Lichtschimmer läuft über
+   die Kristalle. Bei reduzierter Bewegung steht er still. */
 .cta--kron{ display:grid; gap:clamp(2.5rem,5vw,4rem); align-items:center }
-.kron{ margin:0; perspective:1400px; justify-self:center; width:min(70%,280px) }
+.kron{ margin:0; perspective:1400px; justify-self:center; width:min(78%,300px) }
 .kron__dreh{
   position:relative; transform-origin:50% 0;
   animation:kron-dreh 14s ease-in-out infinite alternate;
 }
 .kron__dreh img{ display:block; width:100%; height:auto }
+.kron__raum{ position:absolute; inset:0; opacity:.4 }
+.kron__licht{
+  position:relative;
+  filter:
+    drop-shadow(0 0 10px rgba(122,58,230,.55))
+    drop-shadow(0 0 34px rgba(88,32,160,.35));
+}
 .kron__dreh::after{
   content:""; position:absolute; inset:0; pointer-events:none;
-  background:linear-gradient(100deg, transparent 40%, var(--brass) 50%, transparent 60%) 0 0/300% 100% no-repeat;
+  background:linear-gradient(100deg, transparent 40%, rgba(255,255,255,.7) 48%, rgba(190,150,255,.5) 52%, transparent 60%) 0 0/300% 100% no-repeat;
   -webkit-mask:url(img/kronleuchter.webp) center/100% 100% no-repeat;
           mask:url(img/kronleuchter.webp) center/100% 100% no-repeat;
+  mix-blend-mode:soft-light;
   animation:kron-glanz 9s ease-in-out infinite;
 }
 @keyframes kron-dreh{
-  from{ transform:rotateY(-24deg) rotateZ(-.6deg) }
-  to  { transform:rotateY(24deg)  rotateZ(.6deg) }
+  from{ transform:rotateY(-20deg) rotateZ(-.6deg) }
+  to  { transform:rotateY(20deg)  rotateZ(.6deg) }
 }
 @keyframes kron-glanz{
   0%,50%{ background-position:100% 0 }
