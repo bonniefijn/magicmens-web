@@ -58,7 +58,9 @@ const SHOP = {
      Quelle: Fresha-Eintrag zum Salon. ACHTUNG — Fresha schreibt dort selbst,
      der Betrieb sei nicht mit Fresha verbunden, die Daten stammen aus
      öffentlichen Quellen. Donnerstag und Samstag enden früher als der Rest;
-     das ist ungewöhnlich und gehört mit Musti abgeglichen.  [PRÜFEN] */
+     das ist ungewöhnlich und gehört mit Musti abgeglichen.  [PRÜFEN]
+     Bei Änderung auch "openingHoursSpecification" in index.html anpassen
+     (das liest Google). */
   hours: [ null,                    // So  geschlossen
            ["09:30","19:30"],       // Mo
            ["09:30","19:30"],       // Di
