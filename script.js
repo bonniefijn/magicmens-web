@@ -155,7 +155,8 @@ $$("#mnav a").forEach(a => a.addEventListener("click", () => burger.click()));
 /* ── Zwei Ebenen: Hintergrund-Ebenen (Salonfamilie, Termin) ─────────────
    Fortschritt durch die Sektion (0 = kommt unten ins Bild, 1 = oben raus)
    als --p; --b ist die Überblendung Bild A → B. Wann sie beginnt und wie
-   lange sie dauert, steht an der Sektion: data-blende="Start Dauer". */
+   lange sie dauert, steht an der Sektion: data-blende="Start Dauer".
+   Optional data-aus="Start Dauer": danach verklingt das Bild ins Dunkle (--f). */
 (() => {
   const secs = $$(".sec--schicht").filter(s => s.querySelector("[data-schicht]"));
   if (!secs.length) return;
@@ -170,6 +171,10 @@ $$("#mnav a").forEach(a => a.addEventListener("click", () => burger.click()));
       const p = Math.min(1, Math.max(0, (vh - r.top) / (r.height + vh)));
       sec.style.setProperty("--p", p.toFixed(3));
       sec.style.setProperty("--b", Math.min(1, Math.max(0, (p - start) / dauer)).toFixed(3));
+      if (sec.dataset.aus) {
+        const [aStart, aDauer] = sec.dataset.aus.split(" ").map(Number);
+        sec.style.setProperty("--f", Math.min(1, Math.max(0, (p - aStart) / aDauer)).toFixed(3));
+      }
     });
   };
   addEventListener("scroll", () => { if (!tick) { tick = true; requestAnimationFrame(rechne); } }, { passive:true });

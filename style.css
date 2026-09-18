@@ -506,7 +506,7 @@ ul,ol{ list-style:none }
 }
 
 /* Spielart 2: überblenden */
-.schicht__bild--blende{ --o:.72 }
+.schicht__bild--blende{ --o:.72; opacity:calc(1 - var(--f, 0)) }
 .schicht__bild--blende img{
   left:auto; width:min(60vw,860px); object-fit:cover;
   -webkit-mask-image:radial-gradient(ellipse 62% 58% at 62% 52%, #000 25%, transparent 78%);
@@ -736,7 +736,7 @@ ul,ol{ list-style:none }
 /* Termin: dunkle Sektion mit Trimmer-Ebene, der Inhalt sitzt in einem
    hellen Kasten und scrollt darüber. Der Kasten trägt .sec--dark, damit
    Eyebrow, Text und Knöpfe ihre Farben für hellen Grund behalten. */
-#termin{ padding-block:32vh }
+#termin{ padding-block:50vh }
 .cta--karte{
   max-width:620px; margin-inline:0;
   padding:clamp(1.75rem,4vw,3.25rem);
