@@ -154,7 +154,7 @@ $$("#mnav a").forEach(a => a.addEventListener("click", () => burger.click()));
 
 /* ── Salonfamilie: Hintergrund-Ebene ─────────────────────────────────────
    Fortschritt durch die Sektion (0 = kommt unten ins Bild, 1 = oben raus)
-   als --p; --b ist die Überblendung zur Nahaufnahme ab etwa der Mitte. */
+   als --p; --b ist die Überblendung vom Kronleuchter zum Salon. */
 (() => {
   const sec = $("#familie");
   if (!sec || !sec.querySelector("[data-schicht]")) return;
@@ -165,7 +165,7 @@ $$("#mnav a").forEach(a => a.addEventListener("click", () => burger.click()));
     if (r.bottom < 0 || r.top > vh) return;
     const p = Math.min(1, Math.max(0, (vh - r.top) / (r.height + vh)));
     sec.style.setProperty("--p", p.toFixed(3));
-    sec.style.setProperty("--b", Math.min(1, Math.max(0, (p - .42) / .2)).toFixed(3));
+    sec.style.setProperty("--b", Math.min(1, Math.max(0, (p - .3) / .28)).toFixed(3));
   };
   addEventListener("scroll", () => { if (!tick) { tick = true; requestAnimationFrame(rechne); } }, { passive:true });
   rechne();

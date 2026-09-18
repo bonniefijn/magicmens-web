@@ -300,13 +300,12 @@ ul,ol{ list-style:none }
 .btn--light{ background:#161513; color:#F2F0ED; border-color:#161513 }
 .btn--light:hover{ background:#2A2724; border-color:#2A2724 }
 /* ── Knopf mit Displayschrift ───────────────────────────────────────────
-   „Termin" trägt Kingstone, die Ergänzung bleibt in Barlow Condensed.
-   Das hat zwei Gründe: Kingstone hat kein „ü", und unter etwa 20 px
-   laufen die verschnörkelten Versalien ineinander. So bekommt der Knopf
-   die Handschrift des Titels, ohne unleserlich zu werden. */
+   „Termin" in Kingstone, davor das WhatsApp-Zeichen in WhatsApp-Grün.
+   Das Zeichen sagt „über WhatsApp", deshalb steht es nicht mehr als Text
+   da (für Screenreader: aria-label am Knopf). */
 .btn--display{
-  flex-direction:column; gap:.15rem; line-height:1;
-  padding:.7rem 2.1rem;
+  flex-direction:row; align-items:center; gap:.75rem; line-height:1;
+  padding:.7rem 2.9rem .7rem 2.4rem;
 }
 /* Beide Hero-Knöpfe auf dieselbe Höhe — sonst wirkt die Zeile schief. */
 .hero__cta .btn{ min-height:64px }
@@ -314,21 +313,14 @@ ul,ol{ list-style:none }
   font-family:var(--ff-display); font-weight:700;
   font-size:1.7rem; letter-spacing:.02em;
 }
-.btn--display .btn__sub{
-  font-family:var(--ff-title); font-weight:400;
-  font-size:.68rem; letter-spacing:.22em; text-transform:uppercase;
-  opacity:.72;
-}
+.btn__wa{ width:26px; height:26px; flex:none; fill:#25D366 }
 .bookbar__cta.btn--display{
-  display:flex; flex-direction:column; gap:.1rem; line-height:1;
+  display:flex; flex-direction:row; align-items:center; justify-content:center; gap:.6rem; line-height:1;
 }
 .bookbar__cta.btn--display .btn__wort{
   font-family:var(--ff-display); font-weight:700; font-size:1.35rem;
 }
-.bookbar__cta.btn--display .btn__sub{
-  font-family:var(--ff-title); font-size:.64rem;
-  letter-spacing:.22em; text-transform:uppercase; opacity:.72;
-}
+.bookbar__cta .btn__wa{ width:22px; height:22px }
 
 .btn--wa{ background:#25D366; border-color:#25D366; color:#04170B }
 .btn--wa:hover{ background:#2EE573; border-color:#2EE573 }
@@ -473,22 +465,44 @@ ul,ol{ list-style:none }
 .sec{ padding:var(--section) var(--gutter) }
 .sec--tint{ background:var(--tint) }
 
-/* Zwei Ebenen: schwarzer Grund mit Trimmer, der stehen bleibt (sticky),
-   der Text scrollt darüber. --p (0…1) kommt aus script.js
-   und blendet vom ganzen Trimmer zur Nahaufnahme der Klinge über. */
-.sec--schicht{ position:relative; background:#0E0D0C; --p:0 }
+/* Zwei Ebenen: schwarzer Grund mit einem Bild, das stehen bleibt (sticky),
+   der Text scrollt darüber. --p (0…1) kommt aus script.js.
+   Ablauf: Erst nur der Kronleuchter in der Mitte, eng von Schwarz
+   umschlossen. Beim Scrollen weitet sich die Maske, der Leuchter wächst
+   leicht und blendet in den ganzen Salon über (--b) — das Bild „öffnet
+   sich" zum Raum. */
+.sec--schicht{ position:relative; background:#0E0D0C; --p:0; --b:0 }
 .sec--schicht > :not(.schicht){ position:relative; z-index:1 }
 .schicht{ position:absolute; inset:0; z-index:0; pointer-events:none }
-.schicht__bild{ position:sticky; top:0; height:100vh; height:100svh; overflow:hidden }
-.schicht__bild img{
-  position:absolute; top:0; right:0; height:100%; width:min(60vw,860px);
-  object-fit:cover;
-  -webkit-mask-image:radial-gradient(ellipse 62% 58% at 62% 52%, #000 25%, transparent 78%);
-          mask-image:radial-gradient(ellipse 62% 58% at 62% 52%, #000 25%, transparent 78%);
+.schicht__bild{
+  position:sticky; top:0; height:100vh; height:100svh; overflow:hidden;
+  --w:calc(26% + var(--p) * 95%);
+  --h:calc(34% + var(--p) * 95%);
+  -webkit-mask-image:radial-gradient(ellipse var(--w) var(--h) at 50% 50%, #000 45%, transparent 100%);
+          mask-image:radial-gradient(ellipse var(--w) var(--h) at 50% 50%, #000 45%, transparent 100%);
 }
-.sec--schicht{ --o:.72 }
-.schicht__bild .schicht__a{ opacity:calc(var(--o) * (1 - var(--b,0))); transform:scale(calc(1 + var(--p) * .06)) }
-.schicht__bild .schicht__b{ opacity:calc(var(--o) * var(--b,0)); transform:scale(calc(1.06 - var(--p) * .06)) }
+.schicht__bild img{ position:absolute; inset:0; width:100%; height:100% }
+.schicht__bild .schicht__a{
+  left:50%; right:auto; width:auto; aspect-ratio:706/900; object-fit:cover;
+  opacity:calc(.85 * (1 - var(--b)));
+  transform:translateX(-50%) scale(calc(1 + var(--p) * .35));
+  -webkit-mask-image:linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent);
+          mask-image:linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent);
+}
+.schicht__bild .schicht__b{
+  object-fit:cover; opacity:calc(.5 * var(--b));
+  transform:scale(calc(1.18 - var(--b) * .18));
+}
+/* Schatten hinter der Textspalte, damit Weiß auch auf dem hellen Salon
+   lesbar bleibt. */
+.schicht__bild::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(90deg, rgba(14,13,12,.85) 0%, rgba(14,13,12,.5) 45%, transparent 75%);
+  opacity:var(--b);
+}
+@media (max-width:899px){
+  .schicht__bild::after{ background:rgba(14,13,12,.5); opacity:1 }
+}
 .familie{
   max-width:var(--max); margin-inline:auto;
   display:grid; gap:38vh;
@@ -501,10 +515,6 @@ ul,ol{ list-style:none }
   text-wrap:pretty;
 }
 .familie__satz--schluss em{ font-style:normal }
-@media (max-width:899px){
-  .sec--schicht{ --o:.42 }
-  .schicht__bild img{ width:100% }
-}
 .sec--dark{ background:var(--dark); color:#161513 }
 .sec--dark .eyebrow{ color:rgba(11,11,11,.5) }
 .sec--dark .eyebrow i{ color:#0B0B0B }
@@ -706,47 +716,23 @@ ul,ol{ list-style:none }
 .cta{ max-width:var(--max); margin-inline:auto }
 .cta__row{ display:flex; flex-wrap:wrap; gap:.7rem; margin-top:2.25rem }
 
-/* Kronleuchter — das Stück, das man im Salon zuerst sieht.
-   Zwei Ebenen aus dem echten Foto:
-   · kron__raum  — die Decke dahinter, violett getönt, fast durchsichtig
-   · kron__licht — der Leuchter selbst, freigestellt, voll deckend,
-                   mit violettem Neon-Schein
-   Pendelt langsam um die eigene Achse, ein Lichtschimmer läuft über
-   die Kristalle. Bei reduzierter Bewegung steht er still. */
-.cta--kron{ display:grid; gap:clamp(2.5rem,5vw,4rem); align-items:center }
-.kron{ margin:0; perspective:1400px; justify-self:center; width:min(78%,300px) }
-.kron__dreh{
-  position:relative; transform-origin:50% 0;
-  animation:kron-dreh 14s ease-in-out infinite alternate;
+/* Ohne Überschrift: der Satz selbst ist die Aussage, deshalb größer. */
+.cta__lead{
+  max-width:30ch; margin-top:1rem;
+  font-size:clamp(1.3rem,2.3vw,1.85rem); line-height:1.45;
 }
-.kron__dreh img{ display:block; width:100%; height:auto }
-.kron__raum{ position:absolute; inset:0; opacity:.4 }
-.kron__licht{
-  position:relative;
-  filter:
-    drop-shadow(0 0 10px rgba(122,58,230,.55))
-    drop-shadow(0 0 34px rgba(88,32,160,.35));
+.sec--dark .cta__lead{ color:rgba(11,11,11,.82) }
+.cta--bild{ display:grid; gap:clamp(2.5rem,5vw,4rem); align-items:center }
+.cta__bild{
+  margin:0; justify-self:center; width:min(80%,320px);
+  aspect-ratio:4/5; overflow:hidden; border-radius:var(--r);
 }
-.kron__dreh::after{
-  content:""; position:absolute; inset:0; pointer-events:none;
-  background:linear-gradient(100deg, transparent 40%, rgba(255,255,255,.7) 48%, rgba(190,150,255,.5) 52%, transparent 60%) 0 0/300% 100% no-repeat;
-  -webkit-mask:url(img/kronleuchter.webp) center/100% 100% no-repeat;
-          mask:url(img/kronleuchter.webp) center/100% 100% no-repeat;
-  mix-blend-mode:soft-light;
-  animation:kron-glanz 9s ease-in-out infinite;
-}
-@keyframes kron-dreh{
-  from{ transform:rotateY(-20deg) rotateZ(-.6deg) }
-  to  { transform:rotateY(20deg)  rotateZ(.6deg) }
-}
-@keyframes kron-glanz{
-  0%,50%{ background-position:100% 0 }
-  100%  { background-position:0 0 }
-}
+.cta__bild img{ width:100%; height:100%; object-fit:cover; display:block }
 @media (min-width:900px){
-  .cta--kron{ grid-template-columns:minmax(0,1fr) minmax(300px,400px) }
-  .kron{ width:100%; justify-self:end; margin-right:clamp(0rem,3vw,3rem) }
+  .cta--bild{ grid-template-columns:minmax(0,1fr) minmax(280px,380px) }
+  .cta__bild{ width:100%; justify-self:end }
 }
+
 .cta__fine{
   margin-top:1.6rem; font-size:.82rem; color:rgba(11,11,11,.55);
   display:flex; align-items:center; gap:.5rem;
