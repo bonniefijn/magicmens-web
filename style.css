@@ -465,43 +465,60 @@ ul,ol{ list-style:none }
 .sec{ padding:var(--section) var(--gutter) }
 .sec--tint{ background:var(--tint) }
 
-/* Zwei Ebenen: schwarzer Grund mit einem Bild, das stehen bleibt (sticky),
-   der Text scrollt darüber. --p (0…1) kommt aus script.js.
-   Ablauf: Erst nur der Kronleuchter in der Mitte, eng von Schwarz
-   umschlossen. Beim Scrollen weitet sich die Maske, der Leuchter wächst
-   leicht und blendet in den ganzen Salon über (--b) — das Bild „öffnet
-   sich" zum Raum. */
+/* ── Zwei Ebenen (Layered Scrolling) ─────────────────────────────────
+   Schwarzer Grund mit Bildern, die stehen bleiben (sticky); der Inhalt
+   scrollt darüber. --p (0…1, Fortschritt durch die Sektion) und --b
+   (0…1, Überblendung Bild A → B) kommen aus script.js. Zwei Spielarten:
+   · --oeffnen  (Salonfamilie): Kronleuchter in der Mitte, die Maske
+                weitet sich, er blendet in den ganzen Salon über.
+   · --blende   (Termin): Trimmer rechts, weich maskiert, blendet in
+                die Nahaufnahme der Klinge über, leichter Ken-Burns-Zoom. */
 .sec--schicht{ position:relative; background:#0E0D0C; --p:0; --b:0 }
 .sec--schicht > :not(.schicht){ position:relative; z-index:1 }
 .schicht{ position:absolute; inset:0; z-index:0; pointer-events:none }
-.schicht__bild{
-  position:sticky; top:0; height:100vh; height:100svh; overflow:hidden;
+.schicht__bild{ position:sticky; top:0; height:100vh; height:100svh; overflow:hidden }
+.schicht__bild img{ position:absolute; inset:0; width:100%; height:100% }
+
+/* Spielart 1: öffnen */
+.schicht__bild--oeffnen{
   --w:calc(26% + var(--p) * 95%);
   --h:calc(34% + var(--p) * 95%);
   -webkit-mask-image:radial-gradient(ellipse var(--w) var(--h) at 50% 50%, #000 45%, transparent 100%);
           mask-image:radial-gradient(ellipse var(--w) var(--h) at 50% 50%, #000 45%, transparent 100%);
 }
-.schicht__bild img{ position:absolute; inset:0; width:100%; height:100% }
-.schicht__bild .schicht__a{
+.schicht__bild--oeffnen .schicht__a{
   left:50%; right:auto; width:auto; aspect-ratio:706/900; object-fit:cover;
   opacity:calc(.85 * (1 - var(--b)));
   transform:translateX(-50%) scale(calc(1 + var(--p) * .35));
   -webkit-mask-image:linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent);
           mask-image:linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent);
 }
-.schicht__bild .schicht__b{
+.schicht__bild--oeffnen .schicht__b{
   object-fit:cover; opacity:calc(.5 * var(--b));
   transform:scale(calc(1.18 - var(--b) * .18));
 }
 /* Schatten hinter der Textspalte, damit Weiß auch auf dem hellen Salon
    lesbar bleibt. */
-.schicht__bild::after{
+.schicht__bild--oeffnen::after{
   content:""; position:absolute; inset:0;
   background:linear-gradient(90deg, rgba(14,13,12,.85) 0%, rgba(14,13,12,.5) 45%, transparent 75%);
   opacity:var(--b);
 }
+
+/* Spielart 2: überblenden */
+.schicht__bild--blende{ --o:.72 }
+.schicht__bild--blende img{
+  left:auto; width:min(60vw,860px); object-fit:cover;
+  -webkit-mask-image:radial-gradient(ellipse 62% 58% at 62% 52%, #000 25%, transparent 78%);
+          mask-image:radial-gradient(ellipse 62% 58% at 62% 52%, #000 25%, transparent 78%);
+}
+.schicht__bild--blende .schicht__a{ opacity:calc(var(--o) * (1 - var(--b))); transform:scale(calc(1 + var(--p) * .06)) }
+.schicht__bild--blende .schicht__b{ opacity:calc(var(--o) * var(--b)); transform:scale(calc(1.06 - var(--p) * .06)) }
+
 @media (max-width:899px){
-  .schicht__bild::after{ background:rgba(14,13,12,.5); opacity:1 }
+  .schicht__bild--oeffnen::after{ background:rgba(14,13,12,.5); opacity:1 }
+  .schicht__bild--blende{ --o:.5 }
+  .schicht__bild--blende img{ width:100% }
 }
 .familie{
   max-width:var(--max); margin-inline:auto;
@@ -716,22 +733,24 @@ ul,ol{ list-style:none }
 .cta{ max-width:var(--max); margin-inline:auto }
 .cta__row{ display:flex; flex-wrap:wrap; gap:.7rem; margin-top:2.25rem }
 
-/* Ohne Überschrift: der Satz selbst ist die Aussage, deshalb größer. */
+/* Termin: dunkle Sektion mit Trimmer-Ebene, der Inhalt sitzt in einem
+   hellen Kasten und scrollt darüber. Der Kasten trägt .sec--dark, damit
+   Eyebrow, Text und Knöpfe ihre Farben für hellen Grund behalten. */
+#termin{ padding-block:32vh }
+.cta--karte{
+  max-width:620px; margin-inline:0;
+  padding:clamp(1.75rem,4vw,3.25rem);
+  border-radius:var(--r);
+  box-shadow:0 0 0 1px var(--brass-line), 0 30px 80px rgba(0,0,0,.45);
+}
+@media (min-width:900px){
+  .cta--karte{ margin-left:max(0px, calc((100% - var(--max)) / 2)) }
+}
 .cta__lead{
   max-width:30ch; margin-top:1rem;
-  font-size:clamp(1.3rem,2.3vw,1.85rem); line-height:1.45;
+  font-size:clamp(1.25rem,2.1vw,1.7rem); line-height:1.45;
 }
 .sec--dark .cta__lead{ color:rgba(11,11,11,.82) }
-.cta--bild{ display:grid; gap:clamp(2.5rem,5vw,4rem); align-items:center }
-.cta__bild{
-  margin:0; justify-self:center; width:min(80%,320px);
-  aspect-ratio:4/5; overflow:hidden; border-radius:var(--r);
-}
-.cta__bild img{ width:100%; height:100%; object-fit:cover; display:block }
-@media (min-width:900px){
-  .cta--bild{ grid-template-columns:minmax(0,1fr) minmax(280px,380px) }
-  .cta__bild{ width:100%; justify-self:end }
-}
 
 .cta__fine{
   margin-top:1.6rem; font-size:.82rem; color:rgba(11,11,11,.55);

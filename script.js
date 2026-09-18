@@ -152,20 +152,25 @@ burger.addEventListener("click", () => {
 });
 $$("#mnav a").forEach(a => a.addEventListener("click", () => burger.click()));
 
-/* ── Salonfamilie: Hintergrund-Ebene ─────────────────────────────────────
+/* ── Zwei Ebenen: Hintergrund-Ebenen (Salonfamilie, Termin) ─────────────
    Fortschritt durch die Sektion (0 = kommt unten ins Bild, 1 = oben raus)
-   als --p; --b ist die Überblendung vom Kronleuchter zum Salon. */
+   als --p; --b ist die Überblendung Bild A → B. Wann sie beginnt und wie
+   lange sie dauert, steht an der Sektion: data-blende="Start Dauer". */
 (() => {
-  const sec = $("#familie");
-  if (!sec || !sec.querySelector("[data-schicht]")) return;
+  const secs = $$(".sec--schicht").filter(s => s.querySelector("[data-schicht]"));
+  if (!secs.length) return;
   let tick = false;
   const rechne = () => {
     tick = false;
-    const r = sec.getBoundingClientRect(), vh = innerHeight;
-    if (r.bottom < 0 || r.top > vh) return;
-    const p = Math.min(1, Math.max(0, (vh - r.top) / (r.height + vh)));
-    sec.style.setProperty("--p", p.toFixed(3));
-    sec.style.setProperty("--b", Math.min(1, Math.max(0, (p - .3) / .28)).toFixed(3));
+    const vh = innerHeight;
+    secs.forEach(sec => {
+      const r = sec.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > vh) return;
+      const [start, dauer] = (sec.dataset.blende || "0.4 0.2").split(" ").map(Number);
+      const p = Math.min(1, Math.max(0, (vh - r.top) / (r.height + vh)));
+      sec.style.setProperty("--p", p.toFixed(3));
+      sec.style.setProperty("--b", Math.min(1, Math.max(0, (p - start) / dauer)).toFixed(3));
+    });
   };
   addEventListener("scroll", () => { if (!tick) { tick = true; requestAnimationFrame(rechne); } }, { passive:true });
   rechne();
