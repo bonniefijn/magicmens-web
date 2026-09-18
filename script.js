@@ -130,7 +130,18 @@ function openState(now = new Date()){
 
 /* ── Header / Mobile Nav ────────────────────────────────────────────── */
 const hdr = $("#hdr"), burger = $("#burger"), mnav = $("#mnav");
-addEventListener("scroll", () => hdr.classList.toggle("is-stuck", scrollY > 40), { passive:true });
+let letzteY = scrollY;
+const touch = matchMedia("(hover: none), (pointer: coarse)");
+addEventListener("scroll", () => {
+  const y = scrollY;
+  hdr.classList.toggle("is-stuck", y > 40);
+  /* Handy: runter = Leiste weg, hoch = Leiste da. Am Seitenanfang immer da,
+     bei offenem Menü nie weg. Kleine Zitterbewegungen (<6px) zählen nicht. */
+  if (touch.matches && Math.abs(y - letzteY) > 6) {
+    hdr.classList.toggle("is-hidden", y > letzteY && y > 120 && mnav.hidden);
+    letzteY = y;
+  }
+}, { passive:true });
 
 burger.addEventListener("click", () => {
   const open = burger.getAttribute("aria-expanded") === "true";
@@ -140,6 +151,25 @@ burger.addEventListener("click", () => {
   document.body.style.overflow = open ? "" : "hidden";
 });
 $$("#mnav a").forEach(a => a.addEventListener("click", () => burger.click()));
+
+/* ── Salonfamilie: Hintergrund-Ebene ─────────────────────────────────────
+   Fortschritt durch die Sektion (0 = kommt unten ins Bild, 1 = oben raus)
+   als --p; --b ist die Überblendung zur Nahaufnahme ab etwa der Mitte. */
+(() => {
+  const sec = $("#familie");
+  if (!sec || !sec.querySelector("[data-schicht]")) return;
+  let tick = false;
+  const rechne = () => {
+    tick = false;
+    const r = sec.getBoundingClientRect(), vh = innerHeight;
+    if (r.bottom < 0 || r.top > vh) return;
+    const p = Math.min(1, Math.max(0, (vh - r.top) / (r.height + vh)));
+    sec.style.setProperty("--p", p.toFixed(3));
+    sec.style.setProperty("--b", Math.min(1, Math.max(0, (p - .42) / .2)).toFixed(3));
+  };
+  addEventListener("scroll", () => { if (!tick) { tick = true; requestAnimationFrame(rechne); } }, { passive:true });
+  rechne();
+})();
 
 /* ── Sticky Booking Bar ─────────────────────────────────────────────────
    Die Leiste übernimmt genau dann, wenn der Hero-CTA aus dem Bild
