@@ -139,25 +139,30 @@
 }
 
 :root{
-  /* Flächen */
-  --paper:  #161513;   /* mattes Schwarz, leicht warm gestimmt */
-  --tint:   #1E1C19;   /* abgesetzte Sektion, eine Spur heller */
-  --dark:   #F2F0ED;   /* eine helle Sektion als Gegengewicht */
+  /* Flächen — kühles Dunkelblau, aus salon-02.jpg gemessen: die Schatten
+     im Raum liegen bei #21242E, das Neonlicht unter dem Spiegel zieht
+     alles ins Blaue. Zwei Stufen dunkler als Grundfläche gesetzt. */
+  --paper:  #11141B;   /* kühles Dunkelblau statt warmem Schwarz */
+  --tint:   #171B24;   /* abgesetzte Sektion, eine Spur heller */
+  --dark:   #EEF1F4;   /* die helle Sektion, leicht kühl gestimmt */
 
   /* Schrift */
   --ink:    #F2F0ED;
   --ink-2:  #A9A49E;   /* Fließtext sekundär  — 8.0:1 auf Schwarz */
   --ink-3:  #78736E;   /* Labels              — 4.2:1, nur ≥14px bold */
-  --line:   #322E29;
+  --line:   #2A303C;   /* kühle Trennlinie */
 
-  /* Messing, aus den Salonfotos gemessen: poliertes Gestell, Tresengitter,
-     Regalstege, Leuchterringe. #C6A866 ist die Lichtkante, #B49024 der
-     satte Korpus. Derselbe Werkstoff, aus dem sein Logo gezeichnet ist. */
+  /* Chrom statt Messing, aus salon-02.jpg gemessen: Spiegelrahmen,
+     Stuhlgestelle und Leuchte. #D5E0EA ist die helle Lichtkante,
+     #85878B der matte Korpus. */
+  --metall:        #C9D4DF;
+  --metall-tief:   #85878B;
+  --metall-line:   rgba(201,212,223,.34);
+  --metall-line-hi:rgba(201,212,223,.80);
 
-  --brass:      #C6A866;
-  --brass-deep: #B49024;
-  --brass-line: rgba(198,168,102,.40);
-  --brass-line-hi: rgba(198,168,102,.85);
+  /* Das Neonlicht unter dem Spiegel, gemessen: #889AD1. Dient als
+     kühler Schein um Bilder und als Schleier über den Videos. */
+  --neon: #889AD1;
 
   /* Akzent: das leuchtende Orange des „FRISEUR"-Overlays aus dem
      Instagram-Post (instagram.com/p/DU1CV7VCBuq).
@@ -170,16 +175,10 @@
   --accent:    #FF9A33;
   --accent-ink:#9A4E00;   /* dunklere Fassung für Text auf Weiß, 4,8:1 */
 
-  /* Violett aus den Trimmer-Fotos gemessen, blaustichige Variante.
-     Gemessene Alternativen aus demselben Bild, falls du nachjustieren willst:
-       #5820A0  hsl(266 67% 38%)  ← gesetzt, blau-lila
-       #6020A0  hsl(270 67% 38%)  eine Spur wärmer
-       #282088  hsl(245 62% 33%)  deutlich blauer, dunkler
-       #7060D0  hsl(249 54% 60%)  blau, aber heller — Schleier wird schwächer
-       #961EAA  hsl(291 70% 39%)  die alte, rosastichige Fassung
-     --violet-veil steuert die Stärke des Schleiers über den Videos. */
-  --violet: #5820A0;
-  --violet-veil: .17;   /* war .30 — die Bilder waren zu dunkel */
+  /* Schleier über Videos und Bildern: dasselbe kühle Blau wie im Raum,
+     multipliziert. Stärke über --kuehl-veil. */
+  --kuehl: #24345F;
+  --kuehl-veil: .17;   /* war .30 — die Bilder waren zu dunkel */
 
   /* Kingstone trägt die großen Titel, Shadows Into Light die Sektions-
      überschriften, Barlow Condensed die Labels, Barlow den Fließtext. */
@@ -206,12 +205,12 @@
   /* „hervorgehoben“: Hairline-Ring plus zwei weiche Schatten.
      Kein Glow, kein Verlauf — nur Höhe über dem Papier. */
   --lift:
-    0 0 0 1px var(--brass-line),
+    0 0 0 1px var(--metall-line),
     0 2px 4px rgba(0,0,0,.35),
     0 16px 40px rgba(0,0,0,.55);
   --lift-hi:
-    0 0 0 1px var(--brass-line-hi),
-    0 0 34px rgba(198,168,102,.22),
+    0 0 0 1px var(--metall-line-hi),
+    0 0 34px rgba(136,154,209,.28),
     0 4px 10px rgba(0,0,0,.4),
     0 30px 64px rgba(0,0,0,.7);
 }
@@ -238,7 +237,7 @@ img,video,svg{ display:block; max-width:100% }
 button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer }
 a{ color:inherit; text-decoration:none }
 ul,ol{ list-style:none }
-:focus-visible{ outline:2px solid var(--accent-ink); outline-offset:3px; border-radius:4px }
+:focus-visible{ outline:2px solid var(--metall); outline-offset:3px; border-radius:4px }
 
 .skip{
   position:fixed; top:0; left:0; z-index:200;
@@ -262,7 +261,6 @@ ul,ol{ list-style:none }
   letter-spacing:.42em; text-transform:uppercase; color:var(--ink-3);
   display:flex; align-items:center; gap:.7rem; margin-bottom:1.1rem;
 }
-.eyebrow i{ font-style:normal; color:var(--accent-ink); font-variant-numeric:tabular-nums }
 
 /* Abschnittstitel: Handschrift in Versalien, eng gesetzt und groß —
    wie bei Mr. Fox. Hero und Termin-Knopf bleiben Kingstone. */
@@ -544,7 +542,6 @@ ul,ol{ list-style:none }
 .familie__satz--schluss em{ font-style:normal }
 .sec--dark{ background:var(--dark); color:#161513 }
 .sec--dark .eyebrow{ color:rgba(11,11,11,.5) }
-.sec--dark .eyebrow i{ color:#0B0B0B }
 .sec--dark .lead{ color:rgba(11,11,11,.7) }
 .sec__head{ max-width:var(--max); margin:0 auto clamp(2.5rem,5vw,4rem) }
 
@@ -595,8 +592,8 @@ ul,ol{ list-style:none }
 .film{ position:relative }
 .film::after{
   content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
-  background:var(--violet); mix-blend-mode:multiply;
-  opacity:var(--violet-veil);
+  background:var(--kuehl); mix-blend-mode:multiply;
+  opacity:var(--kuehl-veil);
   transition:opacity .45s var(--ease);
 }
 .film:hover::after{ opacity:0 }
@@ -620,7 +617,7 @@ ul,ol{ list-style:none }
   scrollbar-width:none;
 }
 .carousel__track::-webkit-scrollbar{ display:none }
-.carousel__track:focus-visible{ outline:2px solid var(--brass); outline-offset:6px; border-radius:var(--r) }
+.carousel__track:focus-visible{ outline:2px solid var(--metall); outline-offset:6px; border-radius:var(--r) }
 
 .slide{
   flex:0 0 auto; scroll-snap-align:center;
@@ -632,8 +629,8 @@ ul,ol{ list-style:none }
 /* Violetter Schleier wie über den Cuts-Videos */
 .slide::after{
   content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
-  background:var(--violet); mix-blend-mode:multiply;
-  opacity:var(--violet-veil); transition:opacity .45s var(--ease);
+  background:var(--kuehl); mix-blend-mode:multiply;
+  opacity:var(--kuehl-veil); transition:opacity .45s var(--ease);
 }
 .slide:hover::after{ opacity:0 }
 
@@ -642,12 +639,12 @@ ul,ol{ list-style:none }
   width:52px; height:52px; border-radius:50%;
   display:grid; place-items:center;
   font-size:1.9rem; line-height:1; padding-bottom:4px;
-  color:var(--brass);
+  color:var(--metall);
   background:rgba(11,11,11,.72); backdrop-filter:blur(8px);
-  border:1px solid var(--brass-line);
+  border:1px solid var(--metall-line);
   transition:background .25s var(--ease), border-color .25s var(--ease);
 }
-.carousel__nav:hover{ background:rgba(11,11,11,.92); border-color:var(--brass) }
+.carousel__nav:hover{ background:rgba(11,11,11,.92); border-color:var(--metall) }
 .carousel__nav--prev{ left:-6px }
 .carousel__nav--next{ right:-6px }
 @media (max-width:700px){
@@ -684,7 +681,7 @@ ul,ol{ list-style:none }
 .price__d{ grid-column:2; font-size:.85rem; color:var(--ink-2); font-weight:300 }
 .price__go{
   grid-column:3; font-size:var(--fs-label); font-weight:600; letter-spacing:.14em;
-  text-transform:uppercase; color:var(--accent-ink); text-align:right;
+  text-transform:uppercase; color:var(--metall); text-align:right;
   opacity:0; transition:opacity .25s var(--ease);
 }
 .price button:hover .price__go,.price button:focus-visible .price__go{ opacity:1 }
@@ -723,7 +720,7 @@ ul,ol{ list-style:none }
   font-family:var(--ff-display); font-weight:700;
   font-size:clamp(3rem,7vw,5rem); line-height:.9;
 }
-.rating__sterne{ color:var(--brass); font-size:1.2rem; letter-spacing:.2em; margin-right:-.2em }
+.rating__sterne{ color:var(--metall); font-size:1.2rem; letter-spacing:.2em; margin-right:-.2em }
 .rating__text{ color:var(--ink-2); font-size:1.05rem; font-weight:300 }
 .rating__text strong{ color:var(--ink); font-weight:500 }
 .rating .btn{ margin-top:1.5rem }
@@ -740,7 +737,7 @@ ul,ol{ list-style:none }
   max-width:620px; margin-inline:0;
   padding:clamp(1.75rem,4vw,3.25rem);
   border-radius:var(--r);
-  box-shadow:0 0 0 1px var(--brass-line), 0 30px 80px rgba(0,0,0,.45);
+  box-shadow:0 0 0 1px var(--metall-line), 0 30px 80px rgba(0,0,0,.45);
 }
 @media (min-width:900px){
   .cta--karte{ margin-left:max(0px, calc((100% - var(--max)) / 2)) }
@@ -779,7 +776,7 @@ ul,ol{ list-style:none }
    Karte, die man entfärbt, liest sich beim Suchen schlechter. */
 .map{
   max-width:var(--max); margin:clamp(2.5rem,5vw,4rem) auto 0;
-  border:1px solid var(--brass-line); border-radius:var(--r);
+  border:1px solid var(--metall-line); border-radius:var(--r);
   overflow:hidden; background:var(--tint);
 }
 .map iframe{
@@ -936,7 +933,7 @@ ul,ol{ list-style:none }
 .lb img{
   max-width:100%; max-height:100%; object-fit:contain; border-radius:var(--r);
   filter:brightness(1.06) saturate(1.05);
-  box-shadow:0 0 60px rgba(198,168,102,.18), 0 30px 80px rgba(0,0,0,.6);
+  box-shadow:0 0 60px rgba(136,154,209,.22), 0 30px 80px rgba(0,0,0,.6);
 }
 .lb__x,.lb__nav{ position:absolute; width:56px; height:56px; font-size:2rem; line-height:1 }
 .lb__x{ top:.5rem; right:.5rem }
