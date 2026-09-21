@@ -8,3 +8,8 @@
 node_modules/
 .netlify/
 *.log
+
+# ── Nicht veröffentlichen ──────────────────────────────
+# Rechnungen enthalten Steuernummer und IBAN. Sie liegen nur lokal
+# im Ordner und dürfen nie ins Repo oder auf Netlify.
+_rechnungen/
