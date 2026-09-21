@@ -139,18 +139,20 @@
 }
 
 :root{
-  /* Flächen — kühles Dunkelblau, aus salon-02.jpg gemessen: die Schatten
-     im Raum liegen bei #21242E, das Neonlicht unter dem Spiegel zieht
-     alles ins Blaue. Zwei Stufen dunkler als Grundfläche gesetzt. */
-  --paper:  #11141B;   /* kühles Dunkelblau statt warmem Schwarz */
-  --tint:   #171B24;   /* abgesetzte Sektion, eine Spur heller */
-  --dark:   #EEF1F4;   /* die helle Sektion, leicht kühl gestimmt */
+  /* Flächen — kühles Braun. Gemischt aus zwei gemessenen Werten: dem
+     Braun der dunklen Partien im Hero-Video (#554239) und den kühlen
+     Raumschatten aus salon-02.jpg (#21242E). Dadurch stößt der Hero
+     ohne sichtbare Kante an die erste Sektion. Entsättigt, damit es
+     nicht ins Rötliche kippt. */
+  --paper:  #1A1816;   /* kühles Braun, entsättigtes Taupe */
+  --tint:   #221F1C;   /* abgesetzte Sektion, eine Spur heller */
+  --dark:   #F1EFEC;   /* die helle Sektion */
 
   /* Schrift */
   --ink:    #F2F0ED;
   --ink-2:  #A9A49E;   /* Fließtext sekundär  — 8.0:1 auf Schwarz */
   --ink-3:  #78736E;   /* Labels              — 4.2:1, nur ≥14px bold */
-  --line:   #2A303C;   /* kühle Trennlinie */
+  --line:   #322E2A;   /* Trennlinie, neutral gehalten */
 
   /* Chrom statt Messing, aus salon-02.jpg gemessen: Spiegelrahmen,
      Stuhlgestelle und Leuchte. #D5E0EA ist die helle Lichtkante,
@@ -177,7 +179,7 @@
 
   /* Schleier über Videos und Bildern: dasselbe kühle Blau wie im Raum,
      multipliziert. Stärke über --kuehl-veil. */
-  --kuehl: #24345F;
+  --kuehl: #2C3550;
   --kuehl-veil: .17;   /* war .30 — die Bilder waren zu dunkel */
 
   /* Kingstone trägt die großen Titel, Shadows Into Light die Sektions-
@@ -424,9 +426,12 @@ ul,ol{ list-style:none }
 /* Verlauf für Lesbarkeit — oben unter dem Header, unten unter dem Text. */
 .hero__media::before{
   content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
+  /* Unten läuft der Hero in genau die Hintergrundfarbe aus (--paper,
+     #1A1816), nicht in Schwarz — sonst sieht man die Kante zur ersten
+     Sektion. Oben nur ein Hauch, damit die Kopfleiste lesbar bleibt. */
   background:
-    linear-gradient(to bottom, rgba(0,0,0,.45) 0%, transparent 26%),
-    linear-gradient(to top,   rgba(0,0,0,.72) 0%, rgba(0,0,0,.15) 46%);
+    linear-gradient(to bottom, rgba(26,24,22,.55) 0%, transparent 26%),
+    linear-gradient(to top,    #1A1816 0%, rgba(26,24,22,.86) 9%, rgba(26,24,22,.18) 48%);
 }
 
 .hero__txt{
