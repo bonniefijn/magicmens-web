@@ -224,10 +224,15 @@ function magSchwereMedien(){
 (function heroVideo(){
   const v = $("[data-herovideo]");
   if (!v) return;
-  if (!magSchwereMedien()) return;
+  if (!magSchwereMedien()) { v.remove(); return; }   // Standbild bleibt stehen
+  /* Erst einblenden, wenn wirklich Bilder kommen — sonst sieht man das
+     Umschalten vom Standbild auf das Video. */
+  const zeigen = () => requestAnimationFrame(() => v.classList.add("is-da"));
+  v.addEventListener("playing", zeigen, { once:true });
+  v.addEventListener("loadeddata", () => { if (v.readyState >= 3) zeigen(); }, { once:true });
   const start = () => { v.preload = "auto"; v.load(); v.play().catch(() => {}); };
-  if (document.readyState === "complete") setTimeout(start, 400);
-  else addEventListener("load", () => setTimeout(start, 400), { once:true });
+  if (document.readyState === "complete") start();
+  else addEventListener("load", start, { once:true });
 })();
 
 /* ── Videos erst laden, wenn sie in Sicht kommen ────────────────────── */

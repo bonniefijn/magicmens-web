@@ -264,10 +264,12 @@ ul,ol{ list-style:none }
 }
 .eyebrow i{ font-style:normal; color:var(--accent-ink); font-variant-numeric:tabular-nums }
 
+/* Abschnittstitel: Handschrift in Versalien, eng gesetzt und groß —
+   wie bei Mr. Fox. Hero und Termin-Knopf bleiben Kingstone. */
 .h2{
   font-family:var(--ff-script); font-weight:400;
-  font-size:calc(var(--fs-h2) * 1.15); line-height:1.05;
-  letter-spacing:0; text-transform:none;
+  font-size:clamp(2.8rem,6vw,5rem); line-height:.9;
+  letter-spacing:0; text-transform:uppercase;
 }
 .lead{
   max-width:52ch; margin-top:1.4rem;
@@ -276,7 +278,6 @@ ul,ol{ list-style:none }
 .muted{ color:var(--ink-3); font-size:.88rem }
 /* Zeilenabstand öffnen, wo ein selbst gesetzter Umlaut über der Versalie
    Platz braucht — bei line-height unter 1 kollidiert er mit der Zeile darüber. */
-.h2--uml{ line-height:1.24 }
 
 .link{ border-bottom:1px solid var(--line); padding-bottom:2px; font-weight:500 }
 .link:hover{ border-bottom-color:var(--ink) }
@@ -410,9 +411,18 @@ ul,ol{ list-style:none }
 .hero__media{
   position:absolute; inset:0; z-index:-1;
   width:100%; height:100%; margin:0;
-  border-radius:0; box-shadow:none; background:#000;
+  border-radius:0; box-shadow:none;
+  /* Standbild als Hintergrund: es steht sofort und bleibt liegen, bis das
+     Video läuft. So blitzt zwischendurch nichts Schwarzes auf. */
+  background:#000 url("img/poster-hero.jpg") center/cover no-repeat;
 }
-.hero__media video{ width:100%; height:100%; object-fit:cover }
+/* Das Video liegt darüber und wird erst eingeblendet, wenn es wirklich
+   spielt — der Wechsel Standbild → Video ist dadurch nicht zu sehen. */
+.hero__media video{
+  width:100%; height:100%; object-fit:cover;
+  opacity:0; transition:opacity .5s ease;
+}
+.hero__media video.is-da{ opacity:1 }
 /* Verlauf für Lesbarkeit — oben unter dem Header, unten unter dem Text. */
 .hero__media::before{
   content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
@@ -574,17 +584,6 @@ ul,ol{ list-style:none }
 /* Selbst gesetzter Umlaut — Kingstone liefert kein Ö.
    Zwei Punkte aus einem Pseudoelement: das Element ist der linke,
    der box-shadow der rechte. Maße in em, damit es jeder Größe folgt. */
-/* Eigene Zeilenhöhe, damit der Punkteversatz unabhängig davon ist,
-   welchen Zeilenabstand die umgebende Überschrift gerade hat. */
-.uml{ position:relative; display:inline-block; line-height:1 }
-.uml::after{
-  content:""; position:absolute; z-index:1;
-  left:50%; top:-.225em;   /* bei line-height 1 liegt die Ink-Oberkante bei -.095em */
-  width:.085em; height:.085em; border-radius:50%;
-  background:currentColor;
-  transform:translateX(calc(-50% - .135em));
-  box-shadow:.27em 0 0 currentColor;
-}
 
 
 /* ── Violetter Schleier über allem Bildmaterial ──────────────────────────
