@@ -146,6 +146,8 @@
      Der Farbton bleibt der des Tisches, nur Helligkeit und Sättigung
      sind heruntergenommen. */
   --paper:  #141A24;   /* tiefes Blau, fast schwarz */
+  --paper-hell: #1E2838;   /* Licht weit hinten im Raum */
+  --paper-tief: #0C1119;   /* die Ränder, wo kein Licht mehr hinkommt */
   --tint:   #1B2330;   /* abgesetzte Sektion, eine Spur heller */
   --dark:   #EEF1F4;   /* die helle Sektion */
 
@@ -228,7 +230,14 @@ html{
   scroll-padding-top:calc(79px + 1.5rem);
 }
 body{
-  background:var(--paper); color:var(--ink);
+  /* Wie ein gedimmter Raum: hinten in der Mitte etwas Licht (--paper-hell),
+     zu den Rändern hin tiefer (--paper-tief). Der Verlauf bleibt beim
+     Scrollen stehen (fixed), damit er wie Raumlicht wirkt und nicht
+     mitwandert. */
+  background:
+    radial-gradient(120% 80% at 50% 28%, var(--paper-hell) 0%, var(--paper) 42%, var(--paper-tief) 100%)
+    fixed var(--paper);
+  color:var(--ink);
   font-family:var(--ff-text); font-size:var(--fs-body); line-height:1.7;
   font-weight:300; -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
@@ -488,7 +497,7 @@ ul,ol{ list-style:none }
                 weitet sich, er blendet in den ganzen Salon über.
    · --blende   (Termin): Trimmer rechts, weich maskiert, blendet in
                 die Nahaufnahme der Klinge über, leichter Ken-Burns-Zoom. */
-.sec--schicht{ position:relative; background:#0E0D0C; --p:0; --b:0 }
+.sec--schicht{ position:relative; background:var(--paper-tief); --p:0; --b:0 }
 .sec--schicht > :not(.schicht){ position:relative; z-index:1 }
 .schicht{ position:absolute; inset:0; z-index:0; pointer-events:none }
 .schicht__bild{ position:sticky; top:0; height:100vh; height:100svh; overflow:hidden }

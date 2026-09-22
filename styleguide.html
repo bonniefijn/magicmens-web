@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Styleguide — Magic Mens Musti&rsquo;s</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#141A24">
+<link rel="stylesheet" href="style.css">
+
+<!--
+  ══════════════════════════════════════════════════════════════════════
+  Übersicht für den Salon: Farben, Schriften und was die Seite kann.
+  Über den QR-Code auf dem Übergabeblatt erreichbar. Nicht im Menü
+  verlinkt und für Suchmaschinen gesperrt (noindex).
+  Farbwerte hier von Hand gepflegt — bei Änderungen in style.css
+  ebenfalls anpassen.
+  ══════════════════════════════════════════════════════════════════════
+-->
+
+<style>
+  .sg{ max-width:var(--max); margin-inline:auto }
+  .sg__grid{ display:grid; gap:1rem; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); margin-top:1.5rem }
+  .farbe{ border:1px solid var(--line); border-radius:14px; overflow:hidden }
+  .farbe__feld{ height:88px }
+  .farbe__txt{ padding:.7rem .9rem }
+  .farbe__name{ font-family:var(--ff-title); text-transform:uppercase; letter-spacing:.04em }
+  .farbe__hex{ font-family:var(--ff-mono); font-size:.85rem; color:var(--ink-2) }
+  .farbe__wo{ font-size:.78rem; color:var(--ink-3); margin-top:.3rem }
+  .sg__block{ margin-top:clamp(2.5rem,6vw,4.5rem) }
+  .probe{ border:1px solid var(--line); border-radius:14px; padding:1.4rem 1.5rem; margin-top:1rem }
+  .probe__was{ font-family:var(--ff-mono); font-size:.75rem; letter-spacing:.14em;
+               text-transform:uppercase; color:var(--ink-3); margin-bottom:.6rem }
+  .liste{ list-style:none; margin-top:1rem; display:grid; gap:.55rem }
+  .liste li{ padding-left:1.4rem; position:relative; color:var(--ink-2) }
+  .liste li::before{ content:"—"; position:absolute; left:0; color:var(--metall) }
+  .liste li b{ color:var(--ink); font-weight:500 }
+</style>
+</head>
+<body>
+
+<header class="hdr" id="hdr">
+  <a class="hdr__brand" href="index.html" aria-label="Magic Mens Musti&rsquo;s — zur Startseite">
+    <img src="logo.png" alt="" width="685" height="201" decoding="async">
+  </a>
+  <nav class="hdr__nav" aria-label="Hauptnavigation">
+    <a href="index.html">Zurück zur Seite</a>
+  </nav>
+</header>
+
+<main class="sec" style="padding-top:calc(var(--section) + 3rem)">
+  <div class="sec__head sg">
+    <p class="eyebrow">Übersicht</p>
+    <h1 class="h2">Farben, Schrift, Umfang</h1>
+    <p class="lead">
+      Alles, was diese Website ausmacht, auf einer Seite. Praktisch, wenn
+      später ein Schild, eine Visitenkarte oder ein Instagram-Post dazu
+      passen soll.
+    </p>
+  </div>
+
+  <div class="sg">
+    <p class="eyebrow">Farben</p>
+    <div class="sg__grid">
+      <div class="farbe"><div class="farbe__feld" style="background:#141A24"></div>
+        <div class="farbe__txt"><p class="farbe__name">Grundton</p><p class="farbe__hex">#141A24</p>
+        <p class="farbe__wo">Hintergrund der ganzen Seite. Gemessen von der Tischplatte, auf der der Trimmer liegt.</p></div></div>
+
+      <div class="farbe"><div class="farbe__feld" style="background:#1E2838"></div>
+        <div class="farbe__txt"><p class="farbe__name">Raumlicht</p><p class="farbe__hex">#1E2838</p>
+        <p class="farbe__wo">Der hellere Schein in der Mitte, wie Licht weit hinten im Raum.</p></div></div>
+
+      <div class="farbe"><div class="farbe__feld" style="background:#0C1119"></div>
+        <div class="farbe__txt"><p class="farbe__name">Tiefe</p><p class="farbe__hex">#0C1119</p>
+        <p class="farbe__wo">Die Ränder, wo kein Licht mehr hinkommt.</p></div></div>
+
+      <div class="farbe"><div class="farbe__feld" style="background:#1B2330"></div>
+        <div class="farbe__txt"><p class="farbe__name">Abschnitt</p><p class="farbe__hex">#1B2330</p>
+        <p class="farbe__wo">Abgesetzte Abschnitte, zum Beispiel die Preisliste.</p></div></div>
+
+      <div class="farbe"><div class="farbe__feld" style="background:#C9D4DF"></div>
+        <div class="farbe__txt"><p class="farbe__name">Chrom</p><p class="farbe__hex">#C9D4DF</p>
+        <p class="farbe__wo">Rahmen und feine Linien. Gemessen vom Spiegelrahmen.</p></div></div>
+
+      <div class="farbe"><div class="farbe__feld" style="background:#85878B"></div>
+        <div class="farbe__txt"><p class="farbe__name">Chrom matt</p><p class="farbe__hex">#85878B</p>
+        <p class="farbe__wo">Der matte Metallkorpus, für ruhige Flächen.</p></div></div>
+
+      <div class="farbe"><div class="farbe__feld" style="background:#24345F"></div>
+        <div class="farbe__txt"><p class="farbe__name">Blauschleier</p><p class="farbe__hex">#24345F</p>
+        <p class="farbe__wo">Liegt leicht über Videos und Bildern, damit alles zusammenpasst.</p></div></div>
+
+      <div class="farbe"><div class="farbe__feld" style="background:#F2F0ED"></div>
+        <div class="farbe__txt"><p class="farbe__name">Schrift hell</p><p class="farbe__hex">#F2F0ED</p>
+        <p class="farbe__wo">Überschriften und wichtige Zeilen.</p></div></div>
+
+      <div class="farbe"><div class="farbe__feld" style="background:#AEB8C4"></div>
+        <div class="farbe__txt"><p class="farbe__name">Fließtext</p><p class="farbe__hex">#AEB8C4</p>
+        <p class="farbe__wo">Normale Texte, Kontrast 8,7:1.</p></div></div>
+
+      <div class="farbe"><div class="farbe__feld" style="background:#8593A2"></div>
+        <div class="farbe__txt"><p class="farbe__name">Labels</p><p class="farbe__hex">#8593A2</p>
+        <p class="farbe__wo">Kleine Beschriftungen, Kontrast 5,5:1.</p></div></div>
+
+      <div class="farbe"><div class="farbe__feld" style="background:#2B3543"></div>
+        <div class="farbe__txt"><p class="farbe__name">Linie</p><p class="farbe__hex">#2B3543</p>
+        <p class="farbe__wo">Trennlinien zwischen Zeilen und Abschnitten.</p></div></div>
+
+      <div class="farbe"><div class="farbe__feld" style="background:#FF9A33"></div>
+        <div class="farbe__txt"><p class="farbe__name">Sterne</p><p class="farbe__hex">#FF9A33</p>
+        <p class="farbe__wo">Nur für die Google-Sterne. Sonst nirgends.</p></div></div>
+    </div>
+  </div>
+
+  <div class="sg sg__block">
+    <p class="eyebrow">Schriften</p>
+    <div class="probe">
+      <p class="probe__was">Große Titel · Kingstone</p>
+      <p class="hero__h1" style="font-size:clamp(2rem,6vw,3.6rem)">Magic Mens Musti&rsquo;s</p>
+    </div>
+    <div class="probe">
+      <p class="probe__was">Abschnittstitel · Shadows Into Light, Versalien</p>
+      <p class="h2" style="margin-top:0">Bis ins Detail</p>
+    </div>
+    <div class="probe">
+      <p class="probe__was">Zwischentitel und Knöpfe · Barlow Condensed</p>
+      <p style="font-family:var(--ff-title); text-transform:uppercase; font-size:1.5rem">Haarschnitt &amp; Bart</p>
+    </div>
+    <div class="probe">
+      <p class="probe__was">Fließtext · Barlow Light</p>
+      <p>Leistung wählen, Barber wählen, Wunschzeit angeben. Keine App, kein Konto, keine Wartezeit.</p>
+    </div>
+    <div class="probe">
+      <p class="probe__was">Zahlen und Labels · DM Mono</p>
+      <p style="font-family:var(--ff-mono); letter-spacing:.14em">28 € · 09:30–19:30 · 4,9 ★</p>
+    </div>
+  </div>
+
+  <div class="sg sg__block">
+    <p class="eyebrow">Was die Seite kann</p>
+    <ul class="liste">
+      <li><b>Terminanfrage über WhatsApp</b> in drei Schritten: Leistung, Barber, Wunschzeit. Jeder Barber mit eigener Nummer.</li>
+      <li><b>Absagen</b> mit einem Knopf, ebenfalls über WhatsApp.</li>
+      <li><b>Preisliste</b>, aus der man direkt buchen kann.</li>
+      <li><b>Öffnungszeiten</b> mit automatischer Anzeige „jetzt geöffnet“.</li>
+      <li><b>Bildstrecke</b> zum Wischen, Videos aus dem Betrieb.</li>
+      <li><b>Karte</b> von OpenStreetMap, zum Hineinzoomen.</li>
+      <li><b>Keine Cookies, kein Tracking</b>, keine Schriften von fremden Servern.</li>
+      <li><b>Für Handy gebaut</b>, Termin-Knopf immer erreichbar.</li>
+      <li><b>Für Google vorbereitet:</b> Adresse, Zeiten, Bewertung und Leistungen maschinenlesbar hinterlegt.</li>
+    </ul>
+    <p class="lead">
+      Änderungen an Preisen, Zeiten oder Team passieren an einer Stelle im
+      Code. Laufende Betreuung auf Wunsch für 49 € im Monat.
+    </p>
+    <p style="margin-top:1.5rem">
+      <a class="btn btn--ghost" href="index.html">Zurück zur Website</a>
+    </p>
+  </div>
+</main>
+
+<footer class="ftr">
+  <p class="ftr__mark">Magic Mens Musti&rsquo;s</p>
+  <div class="ftr__grid">
+    <p>Styleguide · Stand 22.09.2026 · fijncréation.studio</p>
+    <nav class="ftr__nav" aria-label="Fußzeile">
+      <a href="index.html">Startseite</a>
+      <a href="impressum.html">Impressum</a>
+    </nav>
+    <p class="ftr__cr">© <span data-year>2026</span> Magic Mens Musti&rsquo;s</p>
+  </div>
+</footer>
+
+<script>document.querySelectorAll("[data-year]").forEach(e => e.textContent = new Date().getFullYear());</script>
+</body>
+</html>
